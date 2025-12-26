@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <!-- Progress Indicator -->
+    <LinearLayout
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp">
+
+        <!-- Icons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Step 1: Booked -->
+            <ImageView
+                android:id="@+id/iconBooked"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_calendar"
+                android:background="@drawable/progress_circle_active"
+                android:padding="8dp"
+                app:tint="#FFFFFF" />
+
+            <!-- Progress Line 1 -->
+            <View
+                android:id="@+id/progressLine1"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="2"
+                android:background="#E0E0E0" />
+
+            <!-- Step 2: Waiting -->
+            <ImageView
+                android:id="@+id/iconWaiting"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_clock"
+                android:background="@drawable/progress_circle_inactive"
+                android:padding="8dp"
+                app:tint="#999999" />
+
+            <!-- Progress Line 2 -->
+            <View
+                android:id="@+id/progressLine2"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="2"
+                android:background="#E0E0E0" />
+
+            <!-- Step 3: On Process -->
+            <ImageView
+                android:id="@+id/iconProcess"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_scissors_on"
+                android:background="@drawable/progress_circle_inactive"
+                android:padding="8dp"
+                app:tint="#999999" />
+
+            <!-- Progress Line 3 -->
+            <View
+                android:id="@+id/progressLine3"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="2"
+                android:background="#E0E0E0" />
+
+            <!-- Step 4: Finished -->
+            <ImageView
+                android:id="@+id/iconFinished"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_check"
+                android:background="@drawable/progress_circle_inactive"
+                android:padding="8dp"
+                app:tint="#999999" />
+
+        </LinearLayout>
+
+        <!-- Labels Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <!-- Label 1: Booked -->
+            <TextView
+                android:id="@+id/lblBooked"
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Booked"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/badge_active"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="2" />
+
+            <!-- Label 2: Waiting -->
+            <TextView
+                android:id="@+id/lblWaiting"
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Waiting"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/badge_inactive"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="2" />
+
+            <!-- Label 3: On Process -->
+            <TextView
+                android:id="@+id/lblProcess"
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="On Process"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/badge_inactive"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="2" />
+
+            <!-- Label 4: Finished -->
+            <TextView
+                android:id="@+id/lblFinished"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Finished"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/badge_inactive"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+        <!-- Booking Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:id="@+id/bookingProcessLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="visible">
+
+                <!-- Barbershop Info -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Shop Image -->
+                    <ImageView
+                        android:id="@+id/imgBarbershop"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/shop1"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/rounded_image_background" />
+
+                    <!-- Shop Details -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:id="@+id/txtShopName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X Men Barber"
+                            android:textColor="#1E3878"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
+
+                        <!-- Location -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_location"
+                                app:tint="#999999"
+                                android:layout_marginEnd="4dp" />
+
+                            <TextView
+                                android:id="@+id/txtLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="X Men Barber (240 m)"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <!-- Rating -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star_filled"
+                                app:tint="#FFB800"
+                                android:layout_marginEnd="4dp" />
+
+                            <TextView
+                                android:id="@+id/txtRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5.0 (24)"
+                                android:textColor="#1E3878"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Maps Button -->
+                    <LinearLayout
+                        android:id="@+id/btnMaps"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_maps"
+                            android:background="@drawable/action_button_background"
+                            android:padding="6dp"
+                            app:tint="#1E3878" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maps"
+                            android:textColor="#1E3878"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp" />
+
+                    </LinearLayout>
+
+                    <!-- Chat Button -->
+                    <LinearLayout
+                        android:id="@+id/btnChat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_chat"
+                            android:background="@drawable/action_button_background"
+                            android:padding="6dp"
+                            app:tint="#1E3878" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Chat"
+                            android:textColor="#1E3878"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp" />
+
+                    </LinearLayout>
+                    <!-- Cancel Button -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="8dp">
+
+                        <Button
+                            android:id="@+id/btnCancel"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:text="Cancel"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#1E3878"
+                            app:cornerRadius="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:id="@+id/dividerAfterActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Time Estimation (VISIBLE ONLY IN WAITING STATE) -->
+                <LinearLayout
+                    android:id="@+id/layoutTimeEstimation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:background="@drawable/bg_time_estimation"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <!-- Info Icon -->
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_info"
+                        android:layout_marginEnd="12dp" />
+
+                    <!-- Label -->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Time Estimation"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#1E3878" />
+
+                    <!-- Time -->
+                    <TextView
+                        android:id="@+id/txtTimeEstimation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-50 Min"
+                        android:textSize="16sp"
+                        android:textColor="#666666" />
+
+                </LinearLayout>
+
+                <!-- On Process (VISIBLE ONLY IN ON PROCESS STATE) -->
+                <LinearLayout
+                    android:id="@+id/layoutOnProcess"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:background="@drawable/bg_time_estimation"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <!-- Info Icon -->
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_scissors_on"
+                        android:layout_marginEnd="12dp" />
+
+                    <!-- Label -->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="On Process"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#1E3878" />
+
+                    <!-- Time -->
+                    <TextView
+                        android:id="@+id/txtOnProcessTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30 Min"
+                        android:textSize="16sp"
+                        android:textColor="#666666" />
+
+                </LinearLayout>
+
+
+
+                <!-- Date & Time Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="#1E3878"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date &amp; time"
+                        android:textColor="#1E3878"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtDateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sun, 15 Jan - 08:00 AM"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Service Selected Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_scissors_on"
+                        app:tint="#1E3878"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Service selected"
+                        android:textColor="#1E3878"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Service List -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Service Item 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/avatar1"
+                            android:background="@drawable/circle_background"
+                            android:scaleType="centerCrop" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Basic haircut"
+                                android:textColor="#1E3878"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Basic haircut &amp; vitaminvit"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Service Item 2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/avatar2"
+                            android:background="@drawable/circle_background"
+                            android:scaleType="centerCrop" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Massage"
+                                android:textColor="#1E3878"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Extra massage"
+                                android:textColor="#999999"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Master Barber Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_person"
+                        app:tint="#1E3878"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Master barber"
+                        android:textColor="#1E3878"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Barber Info -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="32dp">
+
+                    <ImageView
+                        android:id="@+id/imgBarber"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/barber1"
+                        android:background="@drawable/circle_background"
+                        android:scaleType="centerCrop" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:id="@+id/txtBarberName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Luther Hammes"
+                            android:textColor="#1E3878"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Specialist Haircut"
+                            android:textColor="#999999"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Finished State Layout -->
+        <LinearLayout
+            android:id="@+id/finishedLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="gone">
+
+            <!-- Success Icon -->
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_success_check"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service Finished"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E3878"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                android:textSize="13sp"
+                android:textColor="#999999"
+                android:gravity="center"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Rating Button -->
+            <Button
+                android:id="@+id/btnRatingReview"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Rating and review"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:backgroundTint="#2E2A60"
+                app:cornerRadius="14dp" />
+
+        </LinearLayout>
+        <!-- No Booking State Layout -->
+        <LinearLayout
+            android:id="@+id/noBookedLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="gone">
+
+            <!-- No Booking Icon -->
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_no_booking"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Active Booking"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E3878"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You don’t have any active bookings right now. Book a service to get started."
+                android:textSize="13sp"
+                android:textColor="#999999"
+                android:gravity="center"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Book Now Button -->
+            <Button
+                android:id="@+id/btnBookNow"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Book now"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:backgroundTint="#1E3878"
+                app:cornerRadius="14dp" />
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

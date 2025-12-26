@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_all_barbershops.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_authentication.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forget_password.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_on_board1.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_on_board2.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_on_board3.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_rating_review.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+        <config>
+          <theme>@style/Theme.Gobar.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/bottom_sheet_filter.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_active_booking.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_booking.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_chat.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_history_booking.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_barbershop.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_history_booking.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_recommended.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/bottom_nav_menu.xml">
+        <config>
+          <theme>@style/Theme.GoBarBD</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="44aadce8-3b8e-4434-ab20-fb815e14a7c8" name="Changes" comment="initial commit">
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/google-services.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/androidTest/java/com/example/gobarbd/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/ActiveBookingFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/AllBarbershopsActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/Authentication.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/Barbershop.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/BarbershopAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/BarbershopRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/BookingFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/ChatFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/FilterBottomSheet.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/ForgetPassword.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/HistoryBookingAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/HistoryBookingFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/HistoryBookingModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/HomeFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/LoginActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/NearestBarbershopAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/OnBoard1Activity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/OnBoard2Activity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/OnBoard3Activity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/ProfileFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/RatingReviewActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/RecommendedBarbershopAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/RegisterActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/java/com/example/gobarbd/SplashActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/color/bottom_nav_color.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/color/chip_background_color.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/color/chip_background_color_review.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/color/chip_text_color.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/color/chip_text_color_review.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/action_button_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/avatar1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/avatar2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/badge_active.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/badge_inactive.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/barber1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/barber_banner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/bg_barbershop_info.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/bg_history_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/bg_input_box.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/bg_orange_rounded_top.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/bg_time_estimation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/bottom_sheet_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/circle_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/dot_active.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/dot_inactive.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/dotted_line.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/filter_button_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/filter_icon_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/gobar_mainlogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_arrow_right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_back.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_booking.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_calendar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_calendar_white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_chat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_check.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_clock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_close.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_email.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_empty_state.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_filter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_filter_header.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_gobarlogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_location.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_lock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_maps.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_no_booking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_person.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_profile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_scissors.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_scissors_on.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_star.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_star_filled.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_star_outline.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/ic_success_check.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/login_header.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/map_placeholder.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/onboard1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/onboard2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/onboard3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/otp_box_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/otp_box_focused.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/otp_box_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/profile_placeholder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/progress_circle_active.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/progress_circle_inactive.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/recommended1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/recommended2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/recommended3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/recommended4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/rounded_image_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/search_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/see_all_button_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/shop1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/shop2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/shop3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/shop4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/drawable/shop_placeholder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_all_barbershops.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_authentication.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_forget_password.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_on_board1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_on_board2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_on_board3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_rating_review.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/bottom_sheet_filter.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/fragment_active_booking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/fragment_booking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/fragment_chat.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/fragment_history_booking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/item_barbershop.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/item_history_booking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/layout/item_recommended.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/menu/bottom_nav_menu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-anydpi/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-anydpi/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/app/src/test/java/com/example/gobarbd/ExampleUnitTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GoBarBD/settings.gradle.kts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\USER\.android\avd\Pixel_3a_API_36.avd)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GoBarBD" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GoBarBD" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GoBarBD" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="GoBarBD" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+        <option value="Class" />
+        <option value="Kotlin Data Class" />
+        <option value="layoutResourceFile" />
+        <option value="resourceFile" />
+        <option value="Kotlin Object" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KotlinCodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="36CxGOYrxpUfCam8nRaZQcGNl7u" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/AndroidStudioProject/GoBarBD"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="android.template.-882520013">
+      <recent name="com.example.gobarbd" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\AndroidStudioProject\GoBarBD\app" />
+      <recent name="D:\AndroidStudioProject\GoBarBD\app\src\main\res\drawable" />
+      <recent name="C:\Users\USER\AndroidStudioProjects\GoBarBD\app\src\main\res\drawable" />
+    </key>
+    <key name="android.template.-1232929856">
+      <recent name="com.example.gobarbd" />
+    </key>
+    <key name="android.template.2037272784">
+      <recent name="com.example.gobarbd" />
+    </key>
+    <key name="android.template.-1385231603">
+      <recent name="com.example.gobarbd" />
+    </key>
+    <key name="android.template.432899835">
+      <recent name="com.example.gobarbd" />
+    </key>
+    <key name="android.template.1919785736">
+      <recent name="com.example.gobarbd" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="GoBarBD.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="44aadce8-3b8e-4434-ab20-fb815e14a7c8" name="Changes" comment="" />
+      <created>1764524258109</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764524258109</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+  </component>
+</project>

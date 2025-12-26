@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Image -->
+
+    <!-- Bottom Orange Card -->
+
+    <ImageView
+        android:id="@+id/imgOnboard1"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/onboard1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:background="@drawable/bg_orange_rounded_top">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="Welcome Gobars"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Find the best grooming experience in your city with just one tap! Don’t miss out on the haircut or treatment of your dreams. Let’s start now!"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Dots -->
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginBottom="20dp">-->
+
+<!--            <View-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="10dp"-->
+<!--                android:background="@drawable/dot_active"-->
+<!--                android:layout_marginEnd="8dp"/>-->
+
+<!--            <View-->
+<!--                android:layout_width="10dp"-->
+<!--                android:layout_height="10dp"-->
+<!--                android:background="@drawable/dot_inactive"/>-->
+<!--        </LinearLayout>-->
+
+        <!-- Button -->
+        <Button
+            android:id="@+id/btnNext"
+            android:text="Get Started"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:backgroundTint="#1E3878" />
+
+    </LinearLayout>
+
+</RelativeLayout>

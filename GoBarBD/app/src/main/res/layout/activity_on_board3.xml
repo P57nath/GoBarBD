@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgOnboard3"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/onboard3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:background="@drawable/bg_orange_rounded_top">
+
+        <TextView
+            android:text="Everything in your hands"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:text="With GobarBD, find high-quality barbershops, see reviews, and make appointments easily. Achieve your confident appearance!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Dots: second one active -->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="center"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:layout_marginBottom="20dp">-->
+
+        <!--            <View-->
+        <!--                android:layout_width="10dp"-->
+        <!--                android:layout_height="10dp"-->
+        <!--                android:background="@drawable/dot_inactive"-->
+        <!--                android:layout_marginEnd="8dp"/>-->
+
+        <!--            <View-->
+        <!--                android:layout_width="10dp"-->
+        <!--                android:layout_height="10dp"-->
+        <!--                android:background="@drawable/dot_active"/>-->
+        <!--        </LinearLayout>-->
+
+        <Button
+            android:id="@+id/btnNext3"
+            android:text="Get Started"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:backgroundTint="#000066"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
