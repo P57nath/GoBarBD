@@ -10,7 +10,7 @@ import com.example.gobarbd.R
 import com.example.gobarbd.core.data.model.Barbershop
 
 class BarbershopAdapter(
-    private val barbershopList: List<Barbershop>,
+    private val barbershopList: MutableList<Barbershop>,
     private val onItemClick: (Barbershop) -> Unit
 ) : RecyclerView.Adapter<BarbershopAdapter.ViewHolder>() {
 
@@ -34,6 +34,12 @@ class BarbershopAdapter(
     }
 
     override fun getItemCount(): Int = barbershopList.size
+
+    fun updateData(newItems: List<Barbershop>) {
+        barbershopList.clear()
+        barbershopList.addAll(newItems)
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgShop: ImageView = itemView.findViewById(R.id.imgShop)

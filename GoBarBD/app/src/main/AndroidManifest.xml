@@ -13,6 +13,27 @@
         android:theme="@style/Theme.GoBarBD"
         tools:targetApi="31">
         <activity
+            android:name="com.example.gobarbd.feature.customer.chat.ChatRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.gobarbd.feature.customer.booking.InvoiceActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.gobarbd.feature.customer.booking.BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.gobarbd.feature.customer.booking.BookAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.gobarbd.feature.customer.detail.BarbershopDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.gobarbd.feature.customer.booking.CreateBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.gobarbd.feature.auth.RoleSelectActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.gobarbd.feature.customer.review.RatingReviewActivity"
             android:exported="false" />
         <activity

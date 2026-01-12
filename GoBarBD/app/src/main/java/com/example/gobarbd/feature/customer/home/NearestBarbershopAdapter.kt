@@ -10,7 +10,7 @@ import com.example.gobarbd.R
 import com.example.gobarbd.core.data.model.Barbershop
 
 class NearestBarbershopAdapter(
-    private val items: List<Barbershop>,
+    private val items: MutableList<Barbershop>,
     private val onClick: (Barbershop) -> Unit
 ) : RecyclerView.Adapter<NearestBarbershopAdapter.VH>() {
 
@@ -37,4 +37,10 @@ class NearestBarbershopAdapter(
     }
 
     override fun getItemCount() = items.size
+
+    fun updateData(newItems: List<Barbershop>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
 }

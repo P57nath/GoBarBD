@@ -9,10 +9,12 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
 import com.example.gobarbd.core.data.model.Barbershop
+import com.example.gobarbd.feature.customer.detail.BarbershopDetailActivity
 import com.example.gobarbd.feature.customer.filter.FilterBottomSheet
 import com.example.gobarbd.feature.customer.filter.FilterData
 import com.google.android.material.appbar.MaterialToolbar
@@ -31,6 +33,7 @@ class AllBarbershopsActivity : AppCompatActivity() {
     private lateinit var filteredList: MutableList<Barbershop>
 
     private var listType: String = "nearest" // "nearest" or "recommended"
+    private lateinit var viewModel: AllBarbershopsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +41,10 @@ class AllBarbershopsActivity : AppCompatActivity() {
 
         initViews()
         setupToolbar()
-        loadData()
         setupRecyclerView()
         setupListeners()
+        setupObservers()
+        loadData()
     }
 
     private fun initViews() {
@@ -71,10 +75,19 @@ class AllBarbershopsActivity : AppCompatActivity() {
         val barbershopsArray =
             intent.getParcelableArrayListExtra<Barbershop>("BARBERSHOPS_LIST")
 
-        allBarbershopsList = barbershopsArray?.toMutableList() ?: loadDefaultData()
-        filteredList = allBarbershopsList.toMutableList()
-
-        updateResultsCount()
+        if (barbershopsArray.isNullOrEmpty()) {
+            viewModel.loadShops()
+        } else {
+            allBarbershopsList = barbershopsArray.toMutableList()
+            filteredList = allBarbershopsList.toMutableList()
+            if (listType == "nearest") {
+                filteredList.sortBy { it.distance }
+            } else {
+                filteredList.sortByDescending { it.rating }
+            }
+            updateResultsCount()
+            barbershopAdapter.updateData(filteredList)
+        }
     }
 
     private fun loadDefaultData(): MutableList<Barbershop> {
@@ -113,8 +126,14 @@ class AllBarbershopsActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
+        allBarbershopsList = mutableListOf()
+        filteredList = mutableListOf()
         barbershopAdapter = BarbershopAdapter(filteredList) { shop ->
-            // TODO: Navigate to barbershop detail screen
+            val intent = android.content.Intent(this, BarbershopDetailActivity::class.java).apply {
+                putExtra("SHOP_ID", shop.id)
+                putExtra("SHOP_NAME", shop.name)
+            }
+            startActivity(intent)
         }
 
         recyclerAllBarbershops.apply {
@@ -134,6 +153,26 @@ class AllBarbershopsActivity : AppCompatActivity() {
         })
 
         btnFilter.setOnClickListener { showFilterBottomSheet() }
+    }
+
+    private fun setupObservers() {
+        viewModel = ViewModelProvider(this)[AllBarbershopsViewModel::class.java]
+        viewModel.shops.observe(this) { list ->
+            allBarbershopsList = list.toMutableList()
+            filteredList = allBarbershopsList.toMutableList()
+            if (listType == "nearest") {
+                filteredList.sortBy { it.distance }
+            } else {
+                filteredList.sortByDescending { it.rating }
+            }
+            barbershopAdapter.updateData(filteredList)
+            updateResultsCount()
+        }
+        viewModel.error.observe(this) { message ->
+            if (!message.isNullOrBlank()) {
+                android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun filterBarbershops(query: String) {

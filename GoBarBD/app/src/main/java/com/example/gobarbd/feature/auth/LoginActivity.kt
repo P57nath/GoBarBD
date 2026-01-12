@@ -3,7 +3,6 @@ package com.example.gobarbd.feature.auth
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.gobarbd.app.MainActivity
 import com.example.gobarbd.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -17,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             // Later → Validate login and open HomeActivity
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, RoleSelectActivity::class.java))
         }
 
         binding.txtRegister.setOnClickListener {

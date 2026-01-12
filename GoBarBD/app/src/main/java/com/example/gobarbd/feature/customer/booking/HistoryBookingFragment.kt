@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
-import com.example.gobarbd.feature.customer.booking.model.HistoryBookingModel
 
 class HistoryBookingFragment : Fragment() {
+
+    private lateinit var viewModel: BookingListViewModel
+    private lateinit var adapter: HistoryBookingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,38 +24,15 @@ class HistoryBookingFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerHistory)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = HistoryBookingAdapter(getDummyHistory())
+        adapter = HistoryBookingAdapter(mutableListOf())
+        recyclerView.adapter = adapter
+
+        viewModel = ViewModelProvider(requireActivity())[BookingListViewModel::class.java]
+        viewModel.history.observe(viewLifecycleOwner) { list ->
+            adapter.updateData(list)
+        }
+        viewModel.load("guest")
 
         return view
-    }
-
-    // Temporary static data (replace with backend later)
-    private fun getDummyHistory(): List<HistoryBookingModel> {
-        return listOf(
-            HistoryBookingModel(
-                R.drawable.shop1,
-                "Varcity Barbershop Jogja ex The Varcher",
-                "Condongcatur (10 km)",
-                4.5f
-            ),
-            HistoryBookingModel(
-                R.drawable.shop2,
-                "Twinsky Monkey Barber & Men Stuff",
-                "Jl Taman Siswa (8 km)",
-                5.0f
-            ),
-            HistoryBookingModel(
-                R.drawable.shop3,
-                "Barberman – Haircut styling & massage",
-                "J-Walk Centre (17 km)",
-                4.5f
-            ),
-            HistoryBookingModel(
-                R.drawable.shop4,
-                "Alana Barbershop – Haircut massage & Spa",
-                "Banguntapan (5 km)",
-                4.5f
-            )
-        )
     }
 }

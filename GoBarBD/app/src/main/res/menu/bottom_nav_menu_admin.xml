@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_admin_dashboard"
+        android:icon="@drawable/ic_home"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/nav_admin_shops"
+        android:icon="@drawable/ic_scissors"
+        android:title="Shops" />
+
+    <item
+        android:id="@+id/nav_admin_bookings"
+        android:icon="@drawable/ic_booking"
+        android:title="Bookings" />
+
+    <item
+        android:id="@+id/nav_admin_settings"
+        android:icon="@drawable/ic_info"
+        android:title="Settings" />
+</menu>

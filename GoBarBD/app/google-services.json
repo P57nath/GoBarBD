@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "832662578922",
+    "firebase_url": "https://gobarbd-3de70-default-rtdb.firebaseio.com",
     "project_id": "gobarbd-3de70",
     "storage_bucket": "gobarbd-3de70.firebasestorage.app"
   },
@@ -10,6 +11,25 @@
         "mobilesdk_app_id": "1:832662578922:android:f7105ee3daccec15299993",
         "android_client_info": {
           "package_name": "com.example.gobarbd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-pZ3rbpGsl3dXErSf7Yx1T3lsGMW-Fsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832662578922:android:c4c0542fb97819dc299993",
+        "android_client_info": {
+          "package_name": "com.example.pulse360"
         }
       },
       "oauth_client": [],

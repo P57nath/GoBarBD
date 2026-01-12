@@ -11,7 +11,7 @@ import com.example.gobarbd.R
 import com.example.gobarbd.core.data.model.Barbershop
 
 class RecommendedBarbershopAdapter(
-    private val items: List<Barbershop>,
+    private val items: MutableList<Barbershop>,
     private val onBookingClick: (Barbershop) -> Unit
 ) : RecyclerView.Adapter<RecommendedBarbershopAdapter.VH>() {
 
@@ -39,4 +39,10 @@ class RecommendedBarbershopAdapter(
     }
 
     override fun getItemCount() = items.size
+
+    fun updateData(newItems: List<Barbershop>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
 }

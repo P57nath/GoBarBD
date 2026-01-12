@@ -9,14 +9,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
-import com.example.gobarbd.core.data.repository.BarbershopRepository
+import com.example.gobarbd.core.data.model.Barbershop
+import com.example.gobarbd.feature.customer.detail.BarbershopDetailActivity
 import com.example.gobarbd.feature.customer.filter.FilterBottomSheet
 import com.example.gobarbd.feature.customer.search.AllBarbershopsActivity
 
 class HomeFragment : Fragment() {
+
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var nearestAdapter: NearestBarbershopAdapter
+    private lateinit var recommendedAdapter: RecommendedBarbershopAdapter
+    private var nearestList: List<Barbershop> = emptyList()
+    private var recommendedList: List<Barbershop> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,9 +33,12 @@ class HomeFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         setupNearest(view)
         setupRecommended(view)
+        setupObservers()
         setupActions(view)
+        viewModel.loadShops()
 
         return view
     }
@@ -39,12 +50,14 @@ class HomeFragment : Fragment() {
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerNearestShops)
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
-        recycler.adapter = NearestBarbershopAdapter(
-            BarbershopRepository.getNearest()
-        ) { shop ->
-            // TODO: Navigate to details screen
-            Toast.makeText(requireContext(), shop.name, Toast.LENGTH_SHORT).show()
+        nearestAdapter = NearestBarbershopAdapter(mutableListOf()) { shop ->
+            val intent = Intent(requireContext(), BarbershopDetailActivity::class.java).apply {
+                putExtra("SHOP_ID", shop.id)
+                putExtra("SHOP_NAME", shop.name)
+            }
+            startActivity(intent)
         }
+        recycler.adapter = nearestAdapter
     }
 
     /* -----------------------------
@@ -55,15 +68,29 @@ class HomeFragment : Fragment() {
         recycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        recycler.adapter = RecommendedBarbershopAdapter(
-            BarbershopRepository.getRecommended()
-        ) { shop ->
-            // TODO: Navigate to booking screen
-            Toast.makeText(
-                requireContext(),
-                "Booking ${shop.name}",
-                Toast.LENGTH_SHORT
-            ).show()
+        recommendedAdapter = RecommendedBarbershopAdapter(mutableListOf()) { shop ->
+            val intent = Intent(requireContext(), BarbershopDetailActivity::class.java).apply {
+                putExtra("SHOP_ID", shop.id)
+                putExtra("SHOP_NAME", shop.name)
+            }
+            startActivity(intent)
+        }
+        recycler.adapter = recommendedAdapter
+    }
+
+    private fun setupObservers() {
+        viewModel.nearest.observe(viewLifecycleOwner) { list ->
+            nearestList = list
+            nearestAdapter.updateData(list)
+        }
+        viewModel.recommended.observe(viewLifecycleOwner) { list ->
+            recommendedList = list
+            recommendedAdapter.updateData(list)
+        }
+        viewModel.error.observe(viewLifecycleOwner) { message ->
+            if (!message.isNullOrBlank()) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -78,7 +105,7 @@ class HomeFragment : Fragment() {
             intent.putExtra("LIST_TYPE", "nearest")
             intent.putParcelableArrayListExtra(
                 "BARBERSHOPS_LIST",
-                ArrayList(BarbershopRepository.getNearest())
+                ArrayList(nearestList)
             )
             startActivity(intent)
         }
@@ -89,7 +116,7 @@ class HomeFragment : Fragment() {
             intent.putExtra("LIST_TYPE", "recommended")
             intent.putParcelableArrayListExtra(
                 "BARBERSHOPS_LIST",
-                ArrayList(BarbershopRepository.getRecommended())
+                ArrayList(recommendedList)
             )
             startActivity(intent)
         }

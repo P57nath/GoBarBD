@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.gobarbd.R
 import com.example.gobarbd.app.MainActivity
 import com.example.gobarbd.feature.customer.review.RatingReviewActivity
@@ -20,6 +21,7 @@ import com.example.gobarbd.feature.customer.review.RatingReviewActivity
 class ActiveBookingFragment : Fragment() {
 
     private var currentStatus = BookingStatus.NOBOOKED
+    private lateinit var viewModel: BookingListViewModel
 
     enum class BookingStatus {
         NOBOOKED,BOOKED, WAITING, ON_PROCESS, FINISHED
@@ -44,6 +46,13 @@ class ActiveBookingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_active_booking, container, false)
+
+        viewModel = ViewModelProvider(requireActivity())[BookingListViewModel::class.java]
+        viewModel.active.observe(viewLifecycleOwner) { list ->
+            currentStatus = if (list.isEmpty()) BookingStatus.NOBOOKED else BookingStatus.BOOKED
+            setupProgressIndicator(view)
+        }
+        viewModel.load("guest")
 
         setupProgressIndicator(view)
         // DEV ONLY: tap progress area to cycle states

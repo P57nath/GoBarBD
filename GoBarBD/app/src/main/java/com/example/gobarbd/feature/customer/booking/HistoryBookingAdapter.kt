@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
-import com.example.gobarbd.feature.customer.booking.model.HistoryBookingModel
+import com.example.gobarbd.core.data.model.Booking
 
 class HistoryBookingAdapter(
-    private val items: List<HistoryBookingModel>
+    private val items: MutableList<Booking>
 ) : RecyclerView.Adapter<HistoryBookingAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -29,10 +29,16 @@ class HistoryBookingAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.imgShop.setImageResource(item.imageRes)
-        holder.txtName.text = item.name
-        holder.txtLocation.text = item.location
+        holder.txtName.text = item.shopName
+        holder.txtLocation.text = item.shopLocation
         holder.txtRating.text = item.rating.toString()
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun updateData(newItems: List<Booking>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
 }

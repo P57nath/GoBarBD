@@ -10,5 +10,9 @@ data class Barbershop(
     val rating: Float,
     val imageResource: Int,
     val distance: Float = 0f,
-    val categories: List<String> = emptyList()
+    val categories: List<String> = emptyList(),
+    val id: String = "",
+    val ratingCount: Int = 0,
+    val isOpen: Boolean = true,
+    val description: String = ""
 ) : Parcelable
