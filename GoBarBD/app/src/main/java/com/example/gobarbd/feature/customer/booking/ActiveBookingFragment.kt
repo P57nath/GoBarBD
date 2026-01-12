@@ -30,19 +30,6 @@ class ActiveBookingFragment : Fragment() {
         NOBOOKED,BOOKED, WAITING, ON_PROCESS, FINISHED
     }
 
-    private fun nextStatus() {
-        currentStatus = when (currentStatus) {
-            BookingStatus.NOBOOKED -> BookingStatus.BOOKED
-            BookingStatus.BOOKED -> BookingStatus.WAITING
-            BookingStatus.WAITING -> BookingStatus.ON_PROCESS
-            BookingStatus.ON_PROCESS -> BookingStatus.FINISHED
-            BookingStatus.FINISHED -> BookingStatus.NOBOOKED
-            else -> BookingStatus.NOBOOKED
-        }
-    }
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,6 +49,12 @@ class ActiveBookingFragment : Fragment() {
                 "COMPLETED" -> BookingStatus.FINISHED
                 "CANCELLED" -> BookingStatus.NOBOOKED
                 else -> BookingStatus.NOBOOKED
+            }
+            if (active != null) {
+                view.findViewById<TextView>(R.id.txtShopName).text = active.shopName
+                view.findViewById<TextView>(R.id.txtLocation).text = active.shopLocation
+                view.findViewById<TextView>(R.id.txtRating).text = active.rating.toString()
+                view.findViewById<ImageView>(R.id.imgBarbershop).setImageResource(active.imageRes)
             }
             setupProgressIndicator(view)
         }

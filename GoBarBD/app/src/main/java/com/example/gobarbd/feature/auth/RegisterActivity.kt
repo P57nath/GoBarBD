@@ -10,6 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gobarbd.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -86,7 +91,7 @@ class RegisterActivity : AppCompatActivity() {
                     finish()
                 }
                 .addOnFailureListener { exception ->
-                    Toast.makeText(this, exception.message ?: "Registration failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, mapAuthError(exception), Toast.LENGTH_SHORT).show()
                 }
         }
 
@@ -94,6 +99,17 @@ class RegisterActivity : AppCompatActivity() {
         txtLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+        }
+    }
+
+    private fun mapAuthError(exception: Exception): String {
+        return when (exception) {
+            is FirebaseAuthUserCollisionException -> "Email already in use."
+            is FirebaseAuthWeakPasswordException -> "Password is too weak."
+            is FirebaseAuthInvalidCredentialsException -> "Invalid email format."
+            is FirebaseNetworkException -> "Network error. Check your connection."
+            is FirebaseAuthException -> exception.message ?: "Registration failed."
+            else -> exception.message ?: "Registration failed."
         }
     }
 }

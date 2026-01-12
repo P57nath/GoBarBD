@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gobarbd.core.data.model.ChatMessage
 import com.example.gobarbd.core.data.repository.ChatRepository
+import com.google.firebase.firestore.ListenerRegistration
 
 class ChatRoomViewModel : ViewModel() {
 
     private val repository = ChatRepository
+    private var listener: ListenerRegistration? = null
 
     private val _messages = MutableLiveData<List<ChatMessage>>()
     val messages: LiveData<List<ChatMessage>> = _messages
@@ -17,9 +19,10 @@ class ChatRoomViewModel : ViewModel() {
     val error: LiveData<String?> = _error
 
     fun load(chatId: String) {
-        repository.fetchMessages(
+        listener?.remove()
+        listener = repository.listenMessages(
             chatId = chatId,
-            onSuccess = { _messages.postValue(it) },
+            onUpdate = { _messages.postValue(it) },
             onError = { _error.postValue(it.message) }
         )
     }
@@ -29,8 +32,13 @@ class ChatRoomViewModel : ViewModel() {
             chatId = chatId,
             senderId = senderId,
             message = message,
-            onSuccess = { load(chatId) },
+            onSuccess = {},
             onError = { _error.postValue(it.message) }
         )
+    }
+
+    override fun onCleared() {
+        listener?.remove()
+        super.onCleared()
     }
 }

@@ -6,6 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gobarbd.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.FirebaseNetworkException
 
 class ForgetPassword : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +36,19 @@ class ForgetPassword : AppCompatActivity() {
                 .addOnFailureListener { exception ->
                     Toast.makeText(
                         this,
-                        exception.message ?: "Failed to send reset email",
+                        mapAuthError(exception),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+        }
+    }
+
+    private fun mapAuthError(exception: Exception): String {
+        return when (exception) {
+            is FirebaseAuthInvalidUserException -> "Account not found."
+            is FirebaseNetworkException -> "Network error. Check your connection."
+            is FirebaseAuthException -> exception.message ?: "Failed to send reset email."
+            else -> exception.message ?: "Failed to send reset email."
         }
     }
 }

@@ -7,6 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gobarbd.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
@@ -51,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Toast.makeText(this, exception.message ?: "Login failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, mapAuthError(exception), Toast.LENGTH_SHORT).show()
                 }
         }
 
@@ -61,6 +65,35 @@ class LoginActivity : AppCompatActivity() {
 
         binding.txtForgotPassword.setOnClickListener {
             startActivity(Intent(this, ForgetPassword::class.java))
+        }
+
+        binding.txtResendVerification.setOnClickListener {
+            val email = binding.edtUsername.text.toString().trim()
+            val password = binding.edtPassword.text.toString().trim()
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Enter a valid email", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (password.length < 6) {
+                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener { result ->
+                    val user = result.user
+                    if (user != null && !user.isEmailVerified) {
+                        user.sendEmailVerification()
+                        Toast.makeText(
+                            this,
+                            "Verification email sent.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    auth.signOut()
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, mapAuthError(exception), Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
@@ -91,5 +124,18 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+    }
+
+    private fun mapAuthError(exception: Exception): String {
+        return when (exception) {
+            is FirebaseAuthInvalidCredentialsException -> "Invalid credentials. Check email and password."
+            is FirebaseAuthInvalidUserException -> "Account not found. Please register."
+            is FirebaseNetworkException -> "Network error. Check your connection."
+            is FirebaseAuthException -> when (exception.errorCode) {
+                "ERROR_USER_DISABLED" -> "Account disabled. Contact support."
+                else -> exception.message ?: "Authentication failed."
+            }
+            else -> exception.message ?: "Authentication failed."
+        }
     }
 }

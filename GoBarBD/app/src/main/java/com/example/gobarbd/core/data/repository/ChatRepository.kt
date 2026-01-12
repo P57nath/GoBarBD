@@ -3,6 +3,7 @@ package com.example.gobarbd.core.data.repository
 import com.example.gobarbd.core.data.model.ChatMessage
 import com.example.gobarbd.core.data.model.ChatThread
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 object ChatRepository {
 
@@ -34,6 +35,32 @@ object ChatRepository {
             }
     }
 
+    fun listenChats(
+        userId: String,
+        activeOnly: Boolean,
+        onUpdate: (List<ChatThread>) -> Unit,
+        onError: (Exception) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("chats")
+            .whereArrayContains("participants", userId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    onError(error)
+                    return@addSnapshotListener
+                }
+                val threads = snapshot?.documents?.map { doc ->
+                    ChatThread(
+                        id = doc.id,
+                        shopName = doc.getString("shopName") ?: "Barbershop",
+                        lastMessage = doc.getString("lastMessage") ?: "",
+                        timestamp = doc.getLong("updatedAt") ?: 0L,
+                        isActive = doc.getBoolean("isActive") ?: true
+                    )
+                }.orEmpty().filter { it.isActive == activeOnly }
+                onUpdate(if (threads.isEmpty()) getSeedThreads(activeOnly) else threads)
+            }
+    }
+
     fun fetchMessages(
         chatId: String,
         onSuccess: (List<ChatMessage>) -> Unit,
@@ -61,6 +88,31 @@ object ChatRepository {
             }
             .addOnFailureListener { exception ->
                 onError(exception)
+            }
+    }
+
+    fun listenMessages(
+        chatId: String,
+        onUpdate: (List<ChatMessage>) -> Unit,
+        onError: (Exception) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("chats")
+            .document(chatId)
+            .collection("messages")
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    onError(error)
+                    return@addSnapshotListener
+                }
+                val messages = snapshot?.documents?.map { doc ->
+                    ChatMessage(
+                        id = doc.id,
+                        senderId = doc.getString("senderId") ?: "",
+                        message = doc.getString("message") ?: "",
+                        timestamp = doc.getLong("timestamp") ?: 0L
+                    )
+                }.orEmpty()
+                onUpdate(if (messages.isEmpty()) getSeedMessages() else messages)
             }
     }
 

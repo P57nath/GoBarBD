@@ -124,6 +124,18 @@
                     android:textColor="#1E3878"
                     android:textSize="14sp"
                     android:layout_gravity="end"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/txtResendVerification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resend verification email"
+                    android:textColor="#1E3878"
+                    android:textSize="14sp"
+                    android:layout_gravity="end"
                     android:layout_marginBottom="30dp"
                     android:clickable="true"
                     android:focusable="true" />

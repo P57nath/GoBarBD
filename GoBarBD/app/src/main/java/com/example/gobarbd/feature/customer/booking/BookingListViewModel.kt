@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gobarbd.core.data.model.Booking
 import com.example.gobarbd.core.data.repository.BookingRepository
+import com.google.firebase.firestore.ListenerRegistration
 
 class BookingListViewModel : ViewModel() {
 
     private val repository = BookingRepository
+    private var listener: ListenerRegistration? = null
 
     private val _active = MutableLiveData<List<Booking>>()
     val active: LiveData<List<Booking>> = _active
@@ -23,11 +25,16 @@ class BookingListViewModel : ViewModel() {
     val statusUpdated: LiveData<Boolean> = _statusUpdated
 
     fun load(customerId: String) {
-        repository.fetchCustomerBookings(
+        listener?.remove()
+        listener = repository.listenCustomerBookings(
             customerId = customerId,
-            onSuccess = { list ->
-                _active.postValue(list.filter { it.status != "COMPLETED" })
-                _history.postValue(list.filter { it.status == "COMPLETED" })
+            onUpdate = { list ->
+                _active.postValue(
+                    list.filter { it.status == "ACTIVE" || it.status == "WAITING" || it.status == "ON_PROCESS" }
+                )
+                _history.postValue(
+                    list.filter { it.status == "COMPLETED" || it.status == "CANCELLED" }
+                )
             },
             onError = { _error.postValue(it.message) }
         )
@@ -40,5 +47,10 @@ class BookingListViewModel : ViewModel() {
             onSuccess = { _statusUpdated.postValue(true) },
             onError = { _error.postValue(it.message) }
         )
+    }
+
+    override fun onCleared() {
+        listener?.remove()
+        super.onCleared()
     }
 }

@@ -6,6 +6,7 @@ import com.example.gobarbd.core.data.model.BookingRequest
 import com.example.gobarbd.core.data.model.Service
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 object BookingRepository {
 
@@ -122,6 +123,35 @@ object BookingRepository {
                 onSuccess(if (bookings.isEmpty()) getSeedBookings() else bookings)
             }
             .addOnFailureListener { exception -> onError(exception) }
+    }
+
+    fun listenCustomerBookings(
+        customerId: String,
+        onUpdate: (List<Booking>) -> Unit,
+        onError: (Exception) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("bookings")
+            .whereEqualTo("customerId", customerId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    onError(error)
+                    return@addSnapshotListener
+                }
+                val docs = snapshot?.documents ?: emptyList()
+                val bookings = docs.mapIndexed { index, doc ->
+                    val status = doc.getString("status") ?: "PENDING"
+                    Booking(
+                        id = doc.id,
+                        shopId = doc.getString("shopId") ?: "",
+                        shopName = doc.getString("shopName") ?: "Barbershop",
+                        shopLocation = doc.getString("shopLocation") ?: "",
+                        rating = (doc.getDouble("rating") ?: 0.0).toFloat(),
+                        status = status,
+                        imageRes = getSeedImages()[index % getSeedImages().size]
+                    )
+                }
+                onUpdate(if (bookings.isEmpty()) getSeedBookings() else bookings)
+            }
     }
 
     fun getSeedServices(): List<Service> = listOf(

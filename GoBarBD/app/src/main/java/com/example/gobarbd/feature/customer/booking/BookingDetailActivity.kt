@@ -12,6 +12,7 @@ import com.example.gobarbd.core.data.model.Barber
 import com.example.gobarbd.core.data.model.BookingRequest
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -80,7 +81,11 @@ class BookingDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, "No barber available", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val startMillis = dateMillis
+            val startMillis = buildStartMillis()
+            if (startMillis <= System.currentTimeMillis()) {
+                Toast.makeText(this, "Select a future time slot", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val endMillis = startMillis + serviceDuration * 60 * 1000L
             val request = BookingRequest(
                 customerId = userId,
@@ -96,6 +101,19 @@ class BookingDetailActivity : AppCompatActivity() {
             )
             viewModel.createBooking(request)
         }
+    }
+
+    private fun buildStartMillis(): Long {
+        val parts = timeLabel.split(":")
+        val hour = parts.getOrNull(0)?.toIntOrNull() ?: 0
+        val minute = parts.getOrNull(1)?.toIntOrNull() ?: 0
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = dateMillis
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        return calendar.timeInMillis
     }
 
     private fun buildDateTime(): String {
