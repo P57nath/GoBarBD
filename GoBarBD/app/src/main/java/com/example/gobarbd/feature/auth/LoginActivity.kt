@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : AppCompatActivity() {
 
@@ -111,6 +112,7 @@ class LoginActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { doc ->
                 val role = doc.getString("role") ?: "customer"
+                updateFcmToken(userId)
                 val intent = Intent(this, com.example.gobarbd.app.MainActivity::class.java).apply {
                     putExtra("ROLE", role)
                 }
@@ -124,6 +126,12 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+    }
+
+    private fun updateFcmToken(userId: String) {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            firestore.collection("users").document(userId).update("fcmToken", token)
+        }
     }
 
     private fun mapAuthError(exception: Exception): String {

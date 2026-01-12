@@ -31,9 +31,13 @@ class HistoryBookingFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[BookingListViewModel::class.java]
         viewModel.history.observe(viewLifecycleOwner) { list ->
             adapter.updateData(list)
+            view.findViewById<View>(R.id.progressHistory).visibility = View.GONE
+            view.findViewById<View>(R.id.txtHistoryEmpty).visibility =
+                if (list.isEmpty()) View.VISIBLE else View.GONE
         }
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (!userId.isNullOrBlank()) {
+            view.findViewById<View>(R.id.progressHistory).visibility = View.VISIBLE
             viewModel.load(userId)
         }
 

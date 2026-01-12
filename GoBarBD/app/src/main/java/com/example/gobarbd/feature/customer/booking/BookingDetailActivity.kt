@@ -45,6 +45,12 @@ class BookingDetailActivity : AppCompatActivity() {
         dateMillis = intent.getLongExtra("DATE_MILLIS", 0L)
         timeLabel = intent.getStringExtra("TIME_LABEL") ?: ""
 
+        if (shopId.isBlank() || serviceId.isBlank()) {
+            Toast.makeText(this, "Missing booking details", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
         findViewById<TextView>(R.id.txtShopName).text = shopName
         findViewById<TextView>(R.id.txtServiceName).text = serviceName
         findViewById<TextView>(R.id.txtServicePrice).text = "$${servicePrice.toInt()}"

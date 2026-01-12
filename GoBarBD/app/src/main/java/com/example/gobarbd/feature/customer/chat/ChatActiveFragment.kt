@@ -38,16 +38,21 @@ class ChatActiveFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[ChatListViewModel::class.java]
         viewModel.activeThreads.observe(viewLifecycleOwner) { list ->
             adapter.updateData(list)
+            view.findViewById<View>(R.id.progressChatActive).visibility = View.GONE
+            view.findViewById<View>(R.id.txtChatActiveEmpty).visibility =
+                if (list.isEmpty()) View.VISIBLE else View.GONE
         }
         viewModel.error.observe(viewLifecycleOwner) { message ->
             if (!message.isNullOrBlank()) {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
+            view.findViewById<View>(R.id.progressChatActive).visibility = View.GONE
         }
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId.isNullOrBlank()) {
             Toast.makeText(requireContext(), "Please login", Toast.LENGTH_SHORT).show()
         } else {
+            view.findViewById<View>(R.id.progressChatActive).visibility = View.VISIBLE
             viewModel.load(userId)
         }
 

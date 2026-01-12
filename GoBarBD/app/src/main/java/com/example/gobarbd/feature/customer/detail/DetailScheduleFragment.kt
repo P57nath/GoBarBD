@@ -23,6 +23,9 @@ class DetailScheduleFragment : Fragment() {
             "08:00", "08:30", "09:00", "09:30", "10:00", "10:30"
         )
         recycler.adapter = ScheduleAdapter(times)
+        view.findViewById<View>(R.id.progressSchedule).visibility = View.GONE
+        view.findViewById<View>(R.id.txtScheduleEmpty).visibility =
+            if (times.isEmpty()) View.VISIBLE else View.GONE
         return view
     }
 

@@ -26,6 +26,7 @@ class DetailAboutFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(requireContext())
         barberAdapter = BarberListAdapter(mutableListOf())
         recycler.adapter = barberAdapter
+        view.findViewById<View>(R.id.progressBarbers).visibility = View.VISIBLE
 
         viewModel = ViewModelProvider(requireActivity())[BarbershopDetailViewModel::class.java]
         viewModel.shop.observe(viewLifecycleOwner) { shop ->
@@ -35,6 +36,9 @@ class DetailAboutFragment : Fragment() {
         }
         viewModel.barbers.observe(viewLifecycleOwner) { list ->
             barberAdapter.updateData(list)
+            view.findViewById<View>(R.id.progressBarbers).visibility = View.GONE
+            view.findViewById<View>(R.id.txtBarbersEmpty).visibility =
+                if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
         return view

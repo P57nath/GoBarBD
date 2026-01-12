@@ -25,10 +25,14 @@ class DetailServiceFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(requireContext())
         adapter = ServiceListAdapter(mutableListOf())
         recycler.adapter = adapter
+        view.findViewById<View>(R.id.progressServices).visibility = View.VISIBLE
 
         viewModel = ViewModelProvider(requireActivity())[BarbershopDetailViewModel::class.java]
         viewModel.services.observe(viewLifecycleOwner) { list ->
             adapter.updateData(list)
+            view.findViewById<View>(R.id.progressServices).visibility = View.GONE
+            view.findViewById<View>(R.id.txtServicesEmpty).visibility =
+                if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
         return view

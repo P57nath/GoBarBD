@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                 "barber" -> when (item.itemId) {
                     R.id.nav_barber_dashboard -> BarberDashboardFragment()
                     R.id.nav_barber_bookings -> BarberBookingsFragment()
+                    R.id.nav_barber_chat -> ChatFragment()
                     R.id.nav_barber_schedule -> BarberScheduleFragment()
                     R.id.nav_barber_profile -> BarberProfileFragment()
                     else -> null
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.nav_admin_dashboard -> AdminDashboardFragment()
                     R.id.nav_admin_shops -> AdminShopsFragment()
                     R.id.nav_admin_bookings -> AdminBookingsFragment()
+                    R.id.nav_admin_chat -> ChatFragment()
                     R.id.nav_admin_settings -> AdminSettingsFragment()
                     else -> null
                 }

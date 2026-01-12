@@ -36,6 +36,8 @@ class ActiveBookingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_active_booking, container, false)
+        val progress = view.findViewById<View>(R.id.progressActiveBooking)
+        progress.visibility = View.VISIBLE
 
         viewModel = ViewModelProvider(requireActivity())[BookingListViewModel::class.java]
         viewModel.active.observe(viewLifecycleOwner) { list ->
@@ -56,11 +58,13 @@ class ActiveBookingFragment : Fragment() {
                 view.findViewById<TextView>(R.id.txtRating).text = active.rating.toString()
                 view.findViewById<ImageView>(R.id.imgBarbershop).setImageResource(active.imageRes)
             }
+            progress.visibility = View.GONE
             setupProgressIndicator(view)
         }
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId.isNullOrBlank()) {
             Toast.makeText(requireContext(), "Please login", Toast.LENGTH_SHORT).show()
+            progress.visibility = View.GONE
         } else {
             viewModel.load(userId)
         }

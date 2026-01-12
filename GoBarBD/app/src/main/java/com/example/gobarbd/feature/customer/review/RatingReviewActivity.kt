@@ -20,6 +20,7 @@ class RatingReviewActivity : AppCompatActivity() {
     private var selectedRating = 4
     private var shopId: String = ""
     private var bookingId: String = ""
+    private var canReview = false
     private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class RatingReviewActivity : AppCompatActivity() {
         setupBackButton()
         setupStarRating()
         setupReviewChips()
+        checkReviewEligibility()
         setupSendButton()
     }
 
@@ -90,6 +92,14 @@ class RatingReviewActivity : AppCompatActivity() {
         val chipGroup = findViewById<ChipGroup>(R.id.chipGroupReviewTags)
 
         btnSendReview.setOnClickListener {
+            if (!canReview) {
+                android.widget.Toast.makeText(
+                    this,
+                    "You can review only after booking is completed.",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
             if (shopId.isBlank()) {
                 android.widget.Toast.makeText(
                     this,
@@ -145,6 +155,26 @@ class RatingReviewActivity : AppCompatActivity() {
                     ).show()
                 }
         }
+    }
+
+    private fun checkReviewEligibility() {
+        if (bookingId.isBlank()) {
+            canReview = false
+            return
+        }
+
+        firestore.collection("bookings")
+            .document(bookingId)
+            .get()
+            .addOnSuccessListener { doc ->
+                val status = doc.getString("status") ?: ""
+                val userId = FirebaseAuth.getInstance().currentUser?.uid
+                val ownerId = doc.getString("customerId")
+                canReview = status == "COMPLETED" && userId != null && userId == ownerId
+            }
+            .addOnFailureListener {
+                canReview = false
+            }
     }
     private fun setupReviewChips() {
         val selectorGroup = findViewById<ChipGroup>(R.id.chipGroupReviewTags)

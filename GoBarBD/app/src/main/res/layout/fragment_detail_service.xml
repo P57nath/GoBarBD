@@ -11,6 +11,22 @@
         android:text="Our Service"
         android:textStyle="bold" />
 
+    <ProgressBar
+        android:id="@+id/progressServices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtServicesEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No services available."
+        android:textColor="#999999"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerServices"
         android:layout_width="match_parent"

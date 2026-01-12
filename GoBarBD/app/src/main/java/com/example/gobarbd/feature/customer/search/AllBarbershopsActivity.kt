@@ -27,6 +27,7 @@ class AllBarbershopsActivity : AppCompatActivity() {
     private lateinit var txtResultsCount: TextView
     private lateinit var recyclerAllBarbershops: RecyclerView
     private lateinit var layoutEmptyState: LinearLayout
+    private lateinit var progressAllBarbershops: View
 
     private lateinit var barbershopAdapter: BarbershopAdapter
     private lateinit var allBarbershopsList: MutableList<Barbershop>
@@ -54,6 +55,7 @@ class AllBarbershopsActivity : AppCompatActivity() {
         txtResultsCount = findViewById(R.id.txtResultsCount)
         recyclerAllBarbershops = findViewById(R.id.recyclerAllBarbershops)
         layoutEmptyState = findViewById(R.id.layoutEmptyState)
+        progressAllBarbershops = findViewById(R.id.progressAllBarbershops)
     }
 
     private fun setupToolbar() {
@@ -74,8 +76,10 @@ class AllBarbershopsActivity : AppCompatActivity() {
     private fun loadData() {
         val barbershopsArray =
             intent.getParcelableArrayListExtra<Barbershop>("BARBERSHOPS_LIST")
+        val initialQuery = intent.getStringExtra("SEARCH_QUERY") ?: ""
 
         if (barbershopsArray.isNullOrEmpty()) {
+            progressAllBarbershops.visibility = View.VISIBLE
             viewModel.loadShops()
         } else {
             allBarbershopsList = barbershopsArray.toMutableList()
@@ -87,6 +91,11 @@ class AllBarbershopsActivity : AppCompatActivity() {
             }
             updateResultsCount()
             barbershopAdapter.updateData(filteredList)
+            if (initialQuery.isNotBlank()) {
+                edtSearch.setText(initialQuery)
+                filterBarbershops(initialQuery)
+            }
+            updateUI()
         }
     }
 
@@ -166,12 +175,15 @@ class AllBarbershopsActivity : AppCompatActivity() {
                 filteredList.sortByDescending { it.rating }
             }
             barbershopAdapter.updateData(filteredList)
+            progressAllBarbershops.visibility = View.GONE
             updateResultsCount()
+            updateUI()
         }
         viewModel.error.observe(this) { message ->
             if (!message.isNullOrBlank()) {
                 android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
             }
+            progressAllBarbershops.visibility = View.GONE
         }
     }
 

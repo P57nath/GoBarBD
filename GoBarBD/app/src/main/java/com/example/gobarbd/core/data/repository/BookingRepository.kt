@@ -154,6 +154,35 @@ object BookingRepository {
             }
     }
 
+    fun listenBarberBookings(
+        barberId: String,
+        onUpdate: (List<Booking>) -> Unit,
+        onError: (Exception) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("bookings")
+            .whereEqualTo("barberId", barberId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    onError(error)
+                    return@addSnapshotListener
+                }
+                val docs = snapshot?.documents ?: emptyList()
+                val bookings = docs.mapIndexed { index, doc ->
+                    val status = doc.getString("status") ?: "PENDING"
+                    Booking(
+                        id = doc.id,
+                        shopId = doc.getString("shopId") ?: "",
+                        shopName = doc.getString("shopName") ?: "Barbershop",
+                        shopLocation = doc.getString("shopLocation") ?: "",
+                        rating = (doc.getDouble("rating") ?: 0.0).toFloat(),
+                        status = status,
+                        imageRes = getSeedImages()[index % getSeedImages().size]
+                    )
+                }
+                onUpdate(if (bookings.isEmpty()) getSeedBookings() else bookings)
+            }
+    }
+
     fun getSeedServices(): List<Service> = listOf(
         Service(id = "s1", name = "Basic Haircut", durationMin = 30, price = 200.0),
         Service(id = "s2", name = "Haircut + Beard", durationMin = 45, price = 300.0),

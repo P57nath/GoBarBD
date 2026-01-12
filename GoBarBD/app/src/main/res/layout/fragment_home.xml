@@ -198,6 +198,22 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <ProgressBar
+                android:id="@+id/progressNearest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtNearestEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="No nearby barbershops yet."
+                android:textColor="#999999"
+                android:visibility="gone" />
+
             <!-- Barbershop List -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerNearestShops"
@@ -245,6 +261,22 @@
                 android:textColor="#1E3878"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressRecommended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtRecommendedEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="No recommendations yet."
+                android:textColor="#999999"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerRecommended"

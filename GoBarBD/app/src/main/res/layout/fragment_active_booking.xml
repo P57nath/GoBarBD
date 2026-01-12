@@ -12,6 +12,13 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+    <ProgressBar
+        android:id="@+id/progressActiveBooking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <!-- Progress Indicator -->
     <LinearLayout
         android:id="@+id/progressIndicator"

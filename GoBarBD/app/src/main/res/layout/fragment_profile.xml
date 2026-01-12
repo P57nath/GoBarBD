@@ -107,5 +107,14 @@
             android:background="@drawable/action_button_background"
             android:text="Log out"
             android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnTestNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/action_button_background"
+            android:text="Test Notification"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </ScrollView>

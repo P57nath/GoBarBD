@@ -16,6 +16,11 @@ class InvoiceActivity : AppCompatActivity() {
         val serviceName = intent.getStringExtra("SERVICE_NAME") ?: ""
         val totalPrice = intent.getDoubleExtra("TOTAL_PRICE", 0.0)
 
+        if (shopName.isBlank()) {
+            finish()
+            return
+        }
+
         findViewById<TextView>(R.id.txtInvoiceShop).text = shopName
         findViewById<TextView>(R.id.txtInvoiceService).text = serviceName
         findViewById<TextView>(R.id.txtInvoiceTotal).text = "$${totalPrice.toInt()}"

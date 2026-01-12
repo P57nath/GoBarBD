@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name="com.example.gobarbd.app.GoBarBdApp"
         android:allowBackup="true"
@@ -70,6 +72,18 @@
         <activity
             android:name="com.example.gobarbd.feature.auth.OnBoard1Activity"
             android:exported="false" />
+
+        <service
+            android:name="com.example.gobarbd.core.notifications.AppMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/notification_channel_id" />
     </application>
 
 </manifest>

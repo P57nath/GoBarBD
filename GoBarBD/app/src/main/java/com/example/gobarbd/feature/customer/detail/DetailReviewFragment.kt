@@ -25,10 +25,14 @@ class DetailReviewFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(requireContext())
         adapter = ReviewListAdapter(mutableListOf())
         recycler.adapter = adapter
+        view.findViewById<View>(R.id.progressReviews).visibility = View.VISIBLE
 
         viewModel = ViewModelProvider(requireActivity())[BarbershopDetailViewModel::class.java]
         viewModel.reviews.observe(viewLifecycleOwner) { list ->
             adapter.updateData(list)
+            view.findViewById<View>(R.id.progressReviews).visibility = View.GONE
+            view.findViewById<View>(R.id.txtReviewsEmpty).visibility =
+                if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
         return view

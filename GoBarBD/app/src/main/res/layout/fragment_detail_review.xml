@@ -11,6 +11,22 @@
         android:text="Review"
         android:textStyle="bold" />
 
+    <ProgressBar
+        android:id="@+id/progressReviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtReviewsEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No reviews yet."
+        android:textColor="#999999"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerReviews"
         android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var recommendedAdapter: RecommendedBarbershopAdapter
     private var nearestList: List<Barbershop> = emptyList()
     private var recommendedList: List<Barbershop> = emptyList()
+    private var allList: List<Barbershop> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +40,8 @@ class HomeFragment : Fragment() {
         setupRecommended(view)
         setupObservers()
         setupActions(view)
+        view.findViewById<View>(R.id.progressNearest).visibility = View.VISIBLE
+        view.findViewById<View>(R.id.progressRecommended).visibility = View.VISIBLE
         viewModel.loadShops()
 
         return view
@@ -82,10 +86,19 @@ class HomeFragment : Fragment() {
         viewModel.nearest.observe(viewLifecycleOwner) { list ->
             nearestList = list
             nearestAdapter.updateData(list)
+            val emptyView = requireView().findViewById<View>(R.id.txtNearestEmpty)
+            val progress = requireView().findViewById<View>(R.id.progressNearest)
+            progress.visibility = View.GONE
+            emptyView.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         }
         viewModel.recommended.observe(viewLifecycleOwner) { list ->
             recommendedList = list
             recommendedAdapter.updateData(list)
+            val emptyView = requireView().findViewById<View>(R.id.txtRecommendedEmpty)
+            val progress = requireView().findViewById<View>(R.id.progressRecommended)
+            progress.visibility = View.GONE
+            emptyView.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+            allList = (nearestList + recommendedList).distinctBy { it.id }
         }
         viewModel.error.observe(viewLifecycleOwner) { message ->
             if (!message.isNullOrBlank()) {
@@ -134,6 +147,18 @@ class HomeFragment : Fragment() {
             }
 
             filterBottomSheet.show(childFragmentManager, "FilterBottomSheet")
+        }
+
+        view.findViewById<EditText>(R.id.edtSearch).setOnEditorActionListener { _, _, _ ->
+            val query = view.findViewById<EditText>(R.id.edtSearch).text.toString().trim()
+            if (query.isNotEmpty()) {
+                val intent = Intent(requireContext(), AllBarbershopsActivity::class.java)
+                intent.putExtra("LIST_TYPE", "search")
+                intent.putParcelableArrayListExtra("BARBERSHOPS_LIST", ArrayList(allList))
+                intent.putExtra("SEARCH_QUERY", query)
+                startActivity(intent)
+            }
+            true
         }
 
         // FIND NOW (GOOGLE MAPS)
