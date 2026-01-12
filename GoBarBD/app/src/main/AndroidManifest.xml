@@ -28,9 +28,6 @@
             android:name="com.example.gobarbd.feature.customer.detail.BarbershopDetailActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.gobarbd.feature.customer.booking.CreateBookingActivity"
-            android:exported="false" />
-        <activity
             android:name="com.example.gobarbd.feature.auth.RoleSelectActivity"
             android:exported="false" />
         <activity

@@ -8,16 +8,26 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.gobarbd.R
+import com.example.gobarbd.core.data.repository.BookingRepository
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RatingReviewActivity : AppCompatActivity() {
 
     private var selectedRating = 4
+    private var shopId: String = ""
+    private var bookingId: String = ""
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating_review)
+
+        shopId = intent.getStringExtra("SHOP_ID") ?: ""
+        bookingId = intent.getStringExtra("BOOKING_ID") ?: ""
 
         setupBackButton()
         setupStarRating()
@@ -80,6 +90,14 @@ class RatingReviewActivity : AppCompatActivity() {
         val chipGroup = findViewById<ChipGroup>(R.id.chipGroupReviewTags)
 
         btnSendReview.setOnClickListener {
+            if (shopId.isBlank()) {
+                android.widget.Toast.makeText(
+                    this,
+                    "Missing shop info",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
             val reviewText = edtReview.text.toString()
             val selectedTags = mutableListOf<String>()
 
@@ -90,19 +108,46 @@ class RatingReviewActivity : AppCompatActivity() {
                 selectedTags.add(chip.text.toString())
             }
 
-            // TODO: Send review to server
-            android.widget.Toast.makeText(
-                this,
-                "Rating: $selectedRating\nReview: $reviewText\nTags: ${selectedTags.joinToString()}",
-                android.widget.Toast.LENGTH_LONG
-            ).show()
+            val user = FirebaseAuth.getInstance().currentUser
+            val data = hashMapOf(
+                "shopId" to shopId,
+                "userId" to (user?.uid ?: ""),
+                "userName" to (user?.email ?: "Customer"),
+                "rating" to selectedRating.toFloat(),
+                "comment" to reviewText,
+                "tags" to selectedTags,
+                "createdAt" to FieldValue.serverTimestamp()
+            )
 
-            finish()
+            firestore.collection("reviews")
+                .add(data)
+                .addOnSuccessListener {
+                    if (bookingId.isNotBlank()) {
+                        BookingRepository.updateBookingStatus(
+                            bookingId = bookingId,
+                            status = "COMPLETED",
+                            onSuccess = {},
+                            onError = {}
+                        )
+                    }
+                    android.widget.Toast.makeText(
+                        this,
+                        "Review submitted",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }
+                .addOnFailureListener { exception ->
+                    android.widget.Toast.makeText(
+                        this,
+                        exception.message ?: "Failed to send review",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                }
         }
     }
     private fun setupReviewChips() {
         val selectorGroup = findViewById<ChipGroup>(R.id.chipGroupReviewTags)
-        val selectedGroup = findViewById<ChipGroup>(R.id.chipGroupSelectedReview)
 
         // Default chip inside review field
         addReviewChip("Overall good")

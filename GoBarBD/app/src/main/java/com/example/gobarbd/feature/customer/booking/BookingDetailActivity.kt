@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.gobarbd.R
 import com.example.gobarbd.core.data.model.Barber
 import com.example.gobarbd.core.data.model.BookingRequest
+import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -27,6 +28,7 @@ class BookingDetailActivity : AppCompatActivity() {
     private var serviceDuration: Int = 30
     private var dateMillis: Long = 0L
     private var timeLabel: String = ""
+    private var shopLocation: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
         shopId = intent.getStringExtra("SHOP_ID") ?: ""
         shopName = intent.getStringExtra("SHOP_NAME") ?: "Barbershop"
+        shopLocation = intent.getStringExtra("SHOP_LOCATION") ?: ""
         serviceId = intent.getStringExtra("SERVICE_ID") ?: ""
         serviceName = intent.getStringExtra("SERVICE_NAME") ?: ""
         servicePrice = intent.getDoubleExtra("SERVICE_PRICE", 0.0)
@@ -67,6 +70,11 @@ class BookingDetailActivity : AppCompatActivity() {
         viewModel.loadBarbers(shopId)
 
         findViewById<Button>(R.id.btnPayNow).setOnClickListener {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            if (userId.isNullOrBlank()) {
+                Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val barber = barbers.firstOrNull()
             if (barber == null) {
                 Toast.makeText(this, "No barber available", Toast.LENGTH_SHORT).show()
@@ -75,15 +83,16 @@ class BookingDetailActivity : AppCompatActivity() {
             val startMillis = dateMillis
             val endMillis = startMillis + serviceDuration * 60 * 1000L
             val request = BookingRequest(
-                customerId = "guest",
+                customerId = userId,
                 shopId = shopId,
                 shopName = shopName,
-                shopLocation = "",
+                shopLocation = shopLocation,
                 barberId = barber.id,
                 serviceId = serviceId,
                 startTimeMillis = startMillis,
                 endTimeMillis = endMillis,
-                paymentMethod = "ONLINE"
+                paymentMethod = "ONLINE",
+                status = "ACTIVE"
             )
             viewModel.createBooking(request)
         }

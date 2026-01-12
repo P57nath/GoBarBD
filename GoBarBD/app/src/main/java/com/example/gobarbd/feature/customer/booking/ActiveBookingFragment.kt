@@ -17,11 +17,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.gobarbd.R
 import com.example.gobarbd.app.MainActivity
 import com.example.gobarbd.feature.customer.review.RatingReviewActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class ActiveBookingFragment : Fragment() {
 
     private var currentStatus = BookingStatus.NOBOOKED
     private lateinit var viewModel: BookingListViewModel
+    private var currentBookingId: String = ""
+    private var currentShopId: String = ""
 
     enum class BookingStatus {
         NOBOOKED,BOOKED, WAITING, ON_PROCESS, FINISHED
@@ -49,23 +52,27 @@ class ActiveBookingFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[BookingListViewModel::class.java]
         viewModel.active.observe(viewLifecycleOwner) { list ->
-            currentStatus = if (list.isEmpty()) BookingStatus.NOBOOKED else BookingStatus.BOOKED
+            val active = list.firstOrNull()
+            currentBookingId = active?.id ?: ""
+            currentShopId = active?.shopId ?: ""
+            currentStatus = when (active?.status) {
+                "ACTIVE" -> BookingStatus.BOOKED
+                "WAITING" -> BookingStatus.WAITING
+                "ON_PROCESS" -> BookingStatus.ON_PROCESS
+                "COMPLETED" -> BookingStatus.FINISHED
+                "CANCELLED" -> BookingStatus.NOBOOKED
+                else -> BookingStatus.NOBOOKED
+            }
             setupProgressIndicator(view)
         }
-        viewModel.load("guest")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId.isNullOrBlank()) {
+            Toast.makeText(requireContext(), "Please login", Toast.LENGTH_SHORT).show()
+        } else {
+            viewModel.load(userId)
+        }
 
         setupProgressIndicator(view)
-        // DEV ONLY: tap progress area to cycle states
-        val bookingProcessLayout = view.findViewById<LinearLayout>(R.id.progressIndicator)
-        bookingProcessLayout.setOnClickListener {
-            nextStatus()
-            Toast.makeText(
-                requireContext(),
-                "Status: $currentStatus",
-                Toast.LENGTH_SHORT
-            ).show()
-            setupProgressIndicator(view)
-        }
         setupActionButtons(view)
         setupCancelButton(view)
 
@@ -174,6 +181,8 @@ class ActiveBookingFragment : Fragment() {
                 val btnRatingReview = view.findViewById<Button>(R.id.btnRatingReview)
                 btnRatingReview.setOnClickListener {
                     val intent = Intent(requireContext(), RatingReviewActivity::class.java)
+                    intent.putExtra("SHOP_ID", currentShopId)
+                    intent.putExtra("BOOKING_ID", currentBookingId)
                     startActivity(intent)
                 }
             }
@@ -229,7 +238,14 @@ class ActiveBookingFragment : Fragment() {
                 .setTitle("Cancel Booking")
                 .setMessage("Are you sure you want to cancel this booking?")
                 .setPositiveButton("Yes") { dialog, _ ->
-                    android.widget.Toast.makeText(context, "Booking cancelled", android.widget.Toast.LENGTH_SHORT).show()
+                    if (currentBookingId.isNotBlank()) {
+                        viewModel.updateStatus(currentBookingId, "CANCELLED")
+                        android.widget.Toast.makeText(
+                            context,
+                            "Booking cancelled",
+                            android.widget.Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     dialog.dismiss()
                 }
                 .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }

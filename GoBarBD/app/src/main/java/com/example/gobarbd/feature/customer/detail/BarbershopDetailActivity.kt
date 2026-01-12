@@ -22,6 +22,7 @@ class BarbershopDetailActivity : AppCompatActivity() {
 
     private var shopId: String = ""
     private var shopName: String = ""
+    private var shopLocation: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,8 @@ class BarbershopDetailActivity : AppCompatActivity() {
                 if (shop.isOpen) "Open" else "Closed"
             val headerImage = findViewById<ImageView>(R.id.imgShopHeader)
             headerImage.setImageResource(shop.imageResource)
+            shopLocation = shop.location
+            shopName = shop.name
         }
         viewModel.error.observe(this) { message ->
             if (!message.isNullOrBlank()) {
@@ -77,6 +80,7 @@ class BarbershopDetailActivity : AppCompatActivity() {
             val intent = Intent(this, BookAppointmentActivity::class.java).apply {
                 putExtra("SHOP_ID", shopId)
                 putExtra("SHOP_NAME", shopName)
+                putExtra("SHOP_LOCATION", shopLocation)
             }
             startActivity(intent)
         }

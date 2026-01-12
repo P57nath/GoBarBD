@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
+import com.google.firebase.auth.FirebaseAuth
 
 class ChatRoomActivity : AppCompatActivity() {
 
@@ -17,6 +18,7 @@ class ChatRoomActivity : AppCompatActivity() {
     private lateinit var adapter: ChatRoomAdapter
     private var chatId: String = ""
     private var shopName: String = ""
+    private var currentUserId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +26,19 @@ class ChatRoomActivity : AppCompatActivity() {
 
         chatId = intent.getStringExtra("CHAT_ID") ?: ""
         shopName = intent.getStringExtra("SHOP_NAME") ?: "Barbershop"
+        currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        if (currentUserId.isBlank()) {
+            Toast.makeText(this, "Please login", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         findViewById<TextView>(R.id.txtChatTitle).text = shopName
         findViewById<ImageView>(R.id.btnBack).setOnClickListener { finish() }
 
         val recycler = findViewById<RecyclerView>(R.id.recyclerChatMessages)
         recycler.layoutManager = LinearLayoutManager(this)
-        adapter = ChatRoomAdapter(mutableListOf(), "guest")
+        adapter = ChatRoomAdapter(mutableListOf(), currentUserId)
         recycler.adapter = adapter
 
         viewModel = ViewModelProvider(this)[ChatRoomViewModel::class.java]
@@ -49,7 +57,7 @@ class ChatRoomActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.btnSend).setOnClickListener {
             val text = edtMessage.text.toString().trim()
             if (text.isNotEmpty()) {
-                viewModel.send(chatId, "guest", text)
+                viewModel.send(chatId, currentUserId, text)
                 edtMessage.setText("")
             }
         }

@@ -111,6 +111,7 @@ object BookingRepository {
                     val status = doc.getString("status") ?: "PENDING"
                     Booking(
                         id = doc.id,
+                        shopId = doc.getString("shopId") ?: "",
                         shopName = doc.getString("shopName") ?: "Barbershop",
                         shopLocation = doc.getString("shopLocation") ?: "",
                         rating = (doc.getDouble("rating") ?: 0.0).toFloat(),
@@ -145,6 +146,7 @@ object BookingRepository {
     fun getSeedBookings(): List<Booking> = listOf(
         Booking(
             id = "bk1",
+            shopId = "shop1",
             shopName = "Varcity Barbershop",
             shopLocation = "Condongcatur (10 km)",
             rating = 4.5f,
@@ -153,6 +155,7 @@ object BookingRepository {
         ),
         Booking(
             id = "bk2",
+            shopId = "shop2",
             shopName = "Twinsky Monkey Barber",
             shopLocation = "Jl Taman Siswa (8 km)",
             rating = 5.0f,
@@ -160,4 +163,27 @@ object BookingRepository {
             imageRes = com.example.gobarbd.R.drawable.shop2
         )
     )
+
+    fun updateBookingStatus(
+        bookingId: String,
+        status: String,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        if (bookingId.isBlank()) {
+            onError(IllegalArgumentException("Invalid booking"))
+            return
+        }
+
+        firestore.collection("bookings")
+            .document(bookingId)
+            .update(
+                mapOf(
+                    "status" to status,
+                    "updatedAt" to FieldValue.serverTimestamp()
+                )
+            )
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { exception -> onError(exception) }
+    }
 }

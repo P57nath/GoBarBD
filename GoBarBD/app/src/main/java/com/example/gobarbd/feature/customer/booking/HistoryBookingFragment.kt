@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
+import com.google.firebase.auth.FirebaseAuth
 
 class HistoryBookingFragment : Fragment() {
 
@@ -31,7 +32,10 @@ class HistoryBookingFragment : Fragment() {
         viewModel.history.observe(viewLifecycleOwner) { list ->
             adapter.updateData(list)
         }
-        viewModel.load("guest")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (!userId.isNullOrBlank()) {
+            viewModel.load(userId)
+        }
 
         return view
     }

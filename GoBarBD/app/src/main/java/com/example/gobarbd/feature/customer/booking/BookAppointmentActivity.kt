@@ -26,6 +26,7 @@ class BookAppointmentActivity : AppCompatActivity() {
 
     private var shopId: String = ""
     private var shopName: String = ""
+    private var shopLocation: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +34,7 @@ class BookAppointmentActivity : AppCompatActivity() {
 
         shopId = intent.getStringExtra("SHOP_ID") ?: ""
         shopName = intent.getStringExtra("SHOP_NAME") ?: "Barbershop"
+        shopLocation = intent.getStringExtra("SHOP_LOCATION") ?: ""
 
         val txtDate = findViewById<TextView>(R.id.txtSelectedDate)
         val btnPickDate = findViewById<Button>(R.id.btnPickDate)
@@ -94,6 +96,7 @@ class BookAppointmentActivity : AppCompatActivity() {
             val intent = Intent(this, BookingDetailActivity::class.java).apply {
                 putExtra("SHOP_ID", shopId)
                 putExtra("SHOP_NAME", shopName)
+                putExtra("SHOP_LOCATION", shopLocation)
                 putExtra("SERVICE_ID", service.id)
                 putExtra("SERVICE_NAME", service.name)
                 putExtra("SERVICE_PRICE", service.price)

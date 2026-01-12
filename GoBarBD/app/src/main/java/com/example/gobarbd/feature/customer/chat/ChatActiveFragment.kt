@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
+import com.google.firebase.auth.FirebaseAuth
 
 class ChatActiveFragment : Fragment() {
 
@@ -43,7 +44,12 @@ class ChatActiveFragment : Fragment() {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
         }
-        viewModel.load("guest")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId.isNullOrBlank()) {
+            Toast.makeText(requireContext(), "Please login", Toast.LENGTH_SHORT).show()
+        } else {
+            viewModel.load(userId)
+        }
 
         return view
     }
