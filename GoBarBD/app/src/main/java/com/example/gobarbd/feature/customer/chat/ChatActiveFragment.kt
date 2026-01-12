@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gobarbd.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ChatActiveFragment : Fragment() {
 
     private lateinit var viewModel: ChatListViewModel
     private lateinit var adapter: ChatThreadAdapter
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +55,20 @@ class ChatActiveFragment : Fragment() {
             Toast.makeText(requireContext(), "Please login", Toast.LENGTH_SHORT).show()
         } else {
             view.findViewById<View>(R.id.progressChatActive).visibility = View.VISIBLE
-            viewModel.load(userId)
+            val role = requireActivity().intent.getStringExtra("ROLE") ?: "customer"
+            if (role == "barber") {
+                firestore.collection("users").document(userId)
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        val barberId = doc.getString("barberId") ?: userId
+                        viewModel.loadForBarber(barberId)
+                    }
+                    .addOnFailureListener {
+                        viewModel.loadForBarber(userId)
+                    }
+            } else {
+                viewModel.load(userId)
+            }
         }
 
         return view

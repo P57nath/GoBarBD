@@ -32,6 +32,10 @@ class ProfileFragment : Fragment() {
             user?.displayName ?: "Customer"
         view.findViewById<TextView>(R.id.txtProfileEmail).text =
             user?.email ?: "Not signed in"
+        view.findViewById<TextView>(R.id.txtProfilePhone).visibility = View.GONE
+        view.findViewById<View>(R.id.btnEditProfile).visibility = View.GONE
+        view.findViewById<View>(R.id.txtAvailabilityLabel).visibility = View.GONE
+        view.findViewById<View>(R.id.txtAvailability).visibility = View.GONE
         view.findViewById<Button>(R.id.btnLogout).setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()

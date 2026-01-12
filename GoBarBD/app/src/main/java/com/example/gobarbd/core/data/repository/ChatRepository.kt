@@ -61,6 +61,32 @@ object ChatRepository {
             }
     }
 
+    fun listenChatsForBarber(
+        barberId: String,
+        activeOnly: Boolean,
+        onUpdate: (List<ChatThread>) -> Unit,
+        onError: (Exception) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("chats")
+            .whereEqualTo("barberId", barberId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    onError(error)
+                    return@addSnapshotListener
+                }
+                val threads = snapshot?.documents?.map { doc ->
+                    ChatThread(
+                        id = doc.id,
+                        shopName = doc.getString("shopName") ?: "Barbershop",
+                        lastMessage = doc.getString("lastMessage") ?: "",
+                        timestamp = doc.getLong("updatedAt") ?: 0L,
+                        isActive = doc.getBoolean("isActive") ?: true
+                    )
+                }.orEmpty().filter { it.isActive == activeOnly }
+                onUpdate(if (threads.isEmpty()) getSeedThreads(activeOnly) else threads)
+            }
+    }
+
     fun fetchMessages(
         chatId: String,
         onSuccess: (List<ChatMessage>) -> Unit,
@@ -116,6 +142,25 @@ object ChatRepository {
             }
     }
 
+    fun listenTyping(
+        chatId: String,
+        onUpdate: (String?, Boolean, Long) -> Unit,
+        onError: (Exception) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("chats")
+            .document(chatId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    onError(error)
+                    return@addSnapshotListener
+                }
+                val typingUserId = snapshot?.getString("typingUserId")
+                val isTyping = snapshot?.getBoolean("isTyping") ?: false
+                val typingAt = snapshot?.getLong("typingAt") ?: 0L
+                onUpdate(typingUserId, isTyping, typingAt)
+            }
+    }
+
     fun sendMessage(
         chatId: String,
         senderId: String,
@@ -132,8 +177,36 @@ object ChatRepository {
             .document(chatId)
             .collection("messages")
             .add(data)
-            .addOnSuccessListener { onSuccess() }
+            .addOnSuccessListener {
+                firestore.collection("chats")
+                    .document(chatId)
+                    .update(
+                        mapOf(
+                            "lastMessage" to message,
+                            "updatedAt" to System.currentTimeMillis()
+                        )
+                    )
+                onSuccess()
+            }
             .addOnFailureListener { exception -> onError(exception) }
+    }
+
+    fun updateTyping(
+        chatId: String,
+        userId: String,
+        isTyping: Boolean
+    ) {
+        if (chatId.isBlank() || userId.isBlank()) {
+            return
+        }
+        val data = hashMapOf(
+            "typingUserId" to userId,
+            "isTyping" to isTyping,
+            "typingAt" to System.currentTimeMillis()
+        )
+        firestore.collection("chats")
+            .document(chatId)
+            .update(data)
     }
 
     private fun getSeedThreads(activeOnly: Boolean): List<ChatThread> {

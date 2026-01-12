@@ -19,6 +19,9 @@
             android:name="com.example.gobarbd.feature.customer.chat.ChatRoomActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.gobarbd.feature.barber.BarberEarningsActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.gobarbd.feature.customer.booking.InvoiceActivity"
             android:exported="false" />
         <activity

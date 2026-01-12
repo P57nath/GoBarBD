@@ -39,6 +39,23 @@ class ChatListViewModel : ViewModel() {
         )
     }
 
+    fun loadForBarber(barberId: String) {
+        activeListener?.remove()
+        finishedListener?.remove()
+        activeListener = repository.listenChatsForBarber(
+            barberId = barberId,
+            activeOnly = true,
+            onUpdate = { _activeThreads.postValue(it) },
+            onError = { _error.postValue(it.message) }
+        )
+        finishedListener = repository.listenChatsForBarber(
+            barberId = barberId,
+            activeOnly = false,
+            onUpdate = { _finishedThreads.postValue(it) },
+            onError = { _error.postValue(it.message) }
+        )
+    }
+
     override fun onCleared() {
         activeListener?.remove()
         finishedListener?.remove()

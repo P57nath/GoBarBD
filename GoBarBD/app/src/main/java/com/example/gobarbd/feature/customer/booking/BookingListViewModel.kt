@@ -33,7 +33,7 @@ class BookingListViewModel : ViewModel() {
                     list.filter { it.status == "ACTIVE" || it.status == "WAITING" || it.status == "ON_PROCESS" }
                 )
                 _history.postValue(
-                    list.filter { it.status == "COMPLETED" || it.status == "CANCELLED" }
+                    list.filter { it.status == "COMPLETED" || it.status == "CANCELLED" || it.status == "NO_SHOW" }
                 )
             },
             onError = { _error.postValue(it.message) }

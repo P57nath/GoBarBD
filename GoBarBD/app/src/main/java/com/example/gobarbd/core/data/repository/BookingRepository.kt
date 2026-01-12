@@ -86,6 +86,8 @@ object BookingRepository {
             "serviceId" to request.serviceId,
             "startTime" to request.startTimeMillis,
             "endTime" to request.endTimeMillis,
+            "servicePrice" to request.servicePrice,
+            "totalPrice" to request.servicePrice,
             "paymentMethod" to request.paymentMethod,
             "paymentStatus" to "PENDING",
             "status" to request.status,
@@ -95,8 +97,46 @@ object BookingRepository {
 
         firestore.collection("bookings")
             .add(data)
-            .addOnSuccessListener { onSuccess() }
+            .addOnSuccessListener { doc ->
+                createChatThread(
+                    bookingId = doc.id,
+                    request = request
+                )
+                onSuccess()
+            }
             .addOnFailureListener { exception -> onError(exception) }
+    }
+
+    private fun createChatThread(
+        bookingId: String,
+        request: BookingRequest
+    ) {
+        if (bookingId.isBlank() || request.customerId.isBlank() || request.barberId.isBlank()) {
+            return
+        }
+        val now = System.currentTimeMillis()
+        val initialMessage = "Your booking is confirmed. We will see you soon."
+        val chatData = hashMapOf(
+            "bookingId" to bookingId,
+            "shopId" to request.shopId,
+            "shopName" to request.shopName,
+            "barberId" to request.barberId,
+            "participants" to listOf(request.customerId, request.barberId),
+            "lastMessage" to initialMessage,
+            "isActive" to true,
+            "createdAt" to FieldValue.serverTimestamp(),
+            "updatedAt" to FieldValue.serverTimestamp()
+        )
+        firestore.collection("chats")
+            .add(chatData)
+            .addOnSuccessListener { doc ->
+                val messageData = hashMapOf(
+                    "senderId" to "system",
+                    "message" to initialMessage,
+                    "timestamp" to now
+                )
+                doc.collection("messages").add(messageData)
+            }
     }
 
     fun fetchCustomerBookings(
@@ -117,7 +157,13 @@ object BookingRepository {
                         shopLocation = doc.getString("shopLocation") ?: "",
                         rating = (doc.getDouble("rating") ?: 0.0).toFloat(),
                         status = status,
-                        imageRes = getSeedImages()[index % getSeedImages().size]
+                        imageRes = getSeedImages()[index % getSeedImages().size],
+                        customerId = doc.getString("customerId") ?: "",
+                        startTimeMillis = doc.getLong("startTime") ?: 0L,
+                        endTimeMillis = doc.getLong("endTime") ?: 0L,
+                        totalPrice = doc.getDouble("totalPrice")
+                            ?: doc.getDouble("servicePrice")
+                            ?: 0.0
                     )
                 }
                 onSuccess(if (bookings.isEmpty()) getSeedBookings() else bookings)
@@ -147,7 +193,13 @@ object BookingRepository {
                         shopLocation = doc.getString("shopLocation") ?: "",
                         rating = (doc.getDouble("rating") ?: 0.0).toFloat(),
                         status = status,
-                        imageRes = getSeedImages()[index % getSeedImages().size]
+                        imageRes = getSeedImages()[index % getSeedImages().size],
+                        customerId = doc.getString("customerId") ?: "",
+                        startTimeMillis = doc.getLong("startTime") ?: 0L,
+                        endTimeMillis = doc.getLong("endTime") ?: 0L,
+                        totalPrice = doc.getDouble("totalPrice")
+                            ?: doc.getDouble("servicePrice")
+                            ?: 0.0
                     )
                 }
                 onUpdate(if (bookings.isEmpty()) getSeedBookings() else bookings)
@@ -176,7 +228,13 @@ object BookingRepository {
                         shopLocation = doc.getString("shopLocation") ?: "",
                         rating = (doc.getDouble("rating") ?: 0.0).toFloat(),
                         status = status,
-                        imageRes = getSeedImages()[index % getSeedImages().size]
+                        imageRes = getSeedImages()[index % getSeedImages().size],
+                        customerId = doc.getString("customerId") ?: "",
+                        startTimeMillis = doc.getLong("startTime") ?: 0L,
+                        endTimeMillis = doc.getLong("endTime") ?: 0L,
+                        totalPrice = doc.getDouble("totalPrice")
+                            ?: doc.getDouble("servicePrice")
+                            ?: 0.0
                     )
                 }
                 onUpdate(if (bookings.isEmpty()) getSeedBookings() else bookings)
@@ -210,7 +268,11 @@ object BookingRepository {
             shopLocation = "Condongcatur (10 km)",
             rating = 4.5f,
             status = "ACTIVE",
-            imageRes = com.example.gobarbd.R.drawable.shop1
+            imageRes = com.example.gobarbd.R.drawable.shop1,
+            customerId = "seedCustomer1",
+            startTimeMillis = System.currentTimeMillis(),
+            endTimeMillis = System.currentTimeMillis() + 30 * 60 * 1000L,
+            totalPrice = 20.0
         ),
         Booking(
             id = "bk2",
@@ -219,7 +281,11 @@ object BookingRepository {
             shopLocation = "Jl Taman Siswa (8 km)",
             rating = 5.0f,
             status = "COMPLETED",
-            imageRes = com.example.gobarbd.R.drawable.shop2
+            imageRes = com.example.gobarbd.R.drawable.shop2,
+            customerId = "seedCustomer2",
+            startTimeMillis = System.currentTimeMillis(),
+            endTimeMillis = System.currentTimeMillis() + 45 * 60 * 1000L,
+            totalPrice = 25.0
         )
     )
 
@@ -239,6 +305,52 @@ object BookingRepository {
             .update(
                 mapOf(
                     "status" to status,
+                    "updatedAt" to FieldValue.serverTimestamp()
+                )
+            )
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { exception -> onError(exception) }
+    }
+
+    fun updateBookingSchedule(
+        bookingId: String,
+        startTimeMillis: Long,
+        endTimeMillis: Long,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        if (bookingId.isBlank()) {
+            onError(IllegalArgumentException("Invalid booking"))
+            return
+        }
+        firestore.collection("bookings")
+            .document(bookingId)
+            .update(
+                mapOf(
+                    "startTime" to startTimeMillis,
+                    "endTime" to endTimeMillis,
+                    "updatedAt" to FieldValue.serverTimestamp()
+                )
+            )
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { exception -> onError(exception) }
+    }
+
+    fun updateBookingNote(
+        bookingId: String,
+        note: String,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        if (bookingId.isBlank()) {
+            onError(IllegalArgumentException("Invalid booking"))
+            return
+        }
+        firestore.collection("bookings")
+            .document(bookingId)
+            .update(
+                mapOf(
+                    "note" to note,
                     "updatedAt" to FieldValue.serverTimestamp()
                 )
             )

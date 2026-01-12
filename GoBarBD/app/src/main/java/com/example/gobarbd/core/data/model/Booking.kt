@@ -7,5 +7,9 @@ data class Booking(
     val shopLocation: String,
     val rating: Float,
     val status: String,
-    val imageRes: Int
+    val imageRes: Int,
+    val customerId: String = "",
+    val startTimeMillis: Long = 0L,
+    val endTimeMillis: Long = 0L,
+    val totalPrice: Double = 0.0
 )

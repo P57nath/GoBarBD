@@ -100,6 +100,7 @@ class BookingDetailActivity : AppCompatActivity() {
                 shopLocation = shopLocation,
                 barberId = barber.id,
                 serviceId = serviceId,
+                servicePrice = servicePrice,
                 startTimeMillis = startMillis,
                 endTimeMillis = endMillis,
                 paymentMethod = "ONLINE",

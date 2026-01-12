@@ -11,6 +11,7 @@ class ChatRoomViewModel : ViewModel() {
 
     private val repository = ChatRepository
     private var listener: ListenerRegistration? = null
+    private var typingListener: ListenerRegistration? = null
 
     private val _messages = MutableLiveData<List<ChatMessage>>()
     val messages: LiveData<List<ChatMessage>> = _messages
@@ -18,11 +19,26 @@ class ChatRoomViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
-    fun load(chatId: String) {
+    private val _isTyping = MutableLiveData<Boolean>()
+    val isTyping: LiveData<Boolean> = _isTyping
+
+    fun load(chatId: String, currentUserId: String) {
         listener?.remove()
+        typingListener?.remove()
         listener = repository.listenMessages(
             chatId = chatId,
             onUpdate = { _messages.postValue(it) },
+            onError = { _error.postValue(it.message) }
+        )
+        typingListener = repository.listenTyping(
+            chatId = chatId,
+            onUpdate = { typingUserId, isTyping, typingAt ->
+                val isOtherTyping = isTyping &&
+                    !typingUserId.isNullOrBlank() &&
+                    typingUserId != currentUserId &&
+                    System.currentTimeMillis() - typingAt < 5000
+                _isTyping.postValue(isOtherTyping)
+            },
             onError = { _error.postValue(it.message) }
         )
     }
@@ -37,8 +53,13 @@ class ChatRoomViewModel : ViewModel() {
         )
     }
 
+    fun updateTyping(chatId: String, senderId: String, isTyping: Boolean) {
+        repository.updateTyping(chatId, senderId, isTyping)
+    }
+
     override fun onCleared() {
         listener?.remove()
+        typingListener?.remove()
         super.onCleared()
     }
 }

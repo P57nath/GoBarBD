@@ -47,8 +47,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="user@email.com" />
+
+                <TextView
+                    android:id="@+id/txtProfilePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#1E3878"
+            android:text="Edit profile"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txtAvailabilityLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Availability"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtAvailability"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Working: 09:00 - 20:00 - 30 min slots"
+            android:textColor="#999999"
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="match_parent"

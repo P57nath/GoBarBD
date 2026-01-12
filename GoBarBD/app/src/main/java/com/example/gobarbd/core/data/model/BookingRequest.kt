@@ -7,6 +7,7 @@ data class BookingRequest(
     val shopLocation: String = "",
     val barberId: String,
     val serviceId: String,
+    val servicePrice: Double,
     val startTimeMillis: Long,
     val endTimeMillis: Long,
     val paymentMethod: String,

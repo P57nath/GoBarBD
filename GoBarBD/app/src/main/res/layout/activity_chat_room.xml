@@ -25,12 +25,71 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/txtTyping"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="6dp"
+        android:text="Typing..."
+        android:textColor="#999999"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerChatMessages"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="12dp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="6dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnQuickReply1"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#EEF1FB"
+                android:text="I will arrive soon"
+                android:textAllCaps="false"
+                android:textColor="#1E3878"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnQuickReply2"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#EEF1FB"
+                android:text="Can we reschedule?"
+                android:textAllCaps="false"
+                android:textColor="#1E3878"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnQuickReply3"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:backgroundTint="#EEF1FB"
+                android:text="Thanks!"
+                android:textAllCaps="false"
+                android:textColor="#1E3878"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
