@@ -4,6 +4,7 @@ import com.example.gobarbd.R
 import com.example.gobarbd.core.data.model.Barbershop
 import com.example.gobarbd.core.data.model.Review
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 object BarbershopRepository {
 
@@ -58,6 +59,73 @@ object BarbershopRepository {
             .addOnFailureListener { exception ->
                 onError(exception)
             }
+    }
+
+    fun listenAllShops(
+        onUpdate: (List<Barbershop>) -> Unit,
+        onError: (Exception) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("shops")
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    onError(error)
+                    return@addSnapshotListener
+                }
+                val docs = snapshot?.documents ?: emptyList()
+                val shops = docs.mapIndexed { index, doc ->
+                    val name = doc.getString("name") ?: ""
+                    val location = doc.getString("address") ?: ""
+                    val rating = (doc.getDouble("ratingAvg") ?: 0.0).toFloat()
+                    val ratingCount = (doc.getLong("ratingCount") ?: 0L).toInt()
+                    val isOpen = doc.getBoolean("isOpen") ?: true
+                    val description = doc.getString("description") ?: ""
+                    val distance = (doc.getDouble("distanceKm") ?: 0.0).toFloat()
+                    val categories = (doc.get("categories") as? List<*>)?.mapNotNull {
+                        it?.toString()
+                    } ?: emptyList()
+                    val imageRes = placeholderImages[index % placeholderImages.size]
+                    Barbershop(
+                        name = name,
+                        location = location,
+                        rating = rating,
+                        imageResource = imageRes,
+                        distance = distance,
+                        categories = categories,
+                        id = doc.id,
+                        ratingCount = ratingCount,
+                        isOpen = isOpen,
+                        description = description
+                    )
+                }
+                onUpdate(if (shops.isEmpty()) getSeedData() else shops)
+            }
+    }
+
+    fun saveShop(
+        shopId: String?,
+        name: String,
+        address: String,
+        description: String,
+        isOpen: Boolean,
+        onSuccess: () -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val data = hashMapOf(
+            "name" to name,
+            "address" to address,
+            "description" to description,
+            "isOpen" to isOpen,
+            "ratingAvg" to 0.0,
+            "ratingCount" to 0L
+        )
+        val docRef = if (shopId.isNullOrBlank()) {
+            firestore.collection("shops").document()
+        } else {
+            firestore.collection("shops").document(shopId)
+        }
+        docRef.set(data)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { exception -> onError(exception) }
     }
 
     fun getNearestFrom(shops: List<Barbershop>): List<Barbershop> {

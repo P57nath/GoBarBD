@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
                     R.id.nav_admin_dashboard -> AdminDashboardFragment()
                     R.id.nav_admin_shops -> AdminShopsFragment()
                     R.id.nav_admin_bookings -> AdminBookingsFragment()
-                    R.id.nav_admin_chat -> ChatFragment()
                     R.id.nav_admin_settings -> AdminSettingsFragment()
                     else -> null
                 }
