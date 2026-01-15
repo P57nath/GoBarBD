@@ -1,10 +1,7 @@
 package com.example.gobarbd.feature.barber
 
-import android.Manifest
 import android.app.AlertDialog
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -18,11 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import com.example.gobarbd.R
-import com.example.gobarbd.app.GoBarBdApp
 import com.example.gobarbd.feature.auth.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -88,9 +81,9 @@ class BarberProfileFragment : Fragment() {
                     if (avatarUri.isNotBlank()) {
                         imgAvatar.setImageURI(Uri.parse(avatarUri))
                     }
-                    val startMinutes = (doc.getLong("workingStartMinutes") ?: 540L).toInt()
-                    val endMinutes = (doc.getLong("workingEndMinutes") ?: 1200L).toInt()
-                    val slotMinutes = (doc.getLong("slotDurationMinutes") ?: 30L).toInt()
+                    val startMinutes = getLongSafe(doc, "workingStartMinutes", 540L).toInt()
+                    val endMinutes = getLongSafe(doc, "workingEndMinutes", 1200L).toInt()
+                    val slotMinutes = getLongSafe(doc, "slotDurationMinutes", 30L).toInt()
                     txtAvailability.text = formatAvailability(startMinutes, endMinutes, slotMinutes)
                 }
         }
@@ -101,20 +94,6 @@ class BarberProfileFragment : Fragment() {
                 addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK)
             }
             startActivity(intent)
-        }
-        view.findViewById<Button>(R.id.btnTestNotification).setOnClickListener {
-            if (ensureNotificationsPermission()) {
-                val notification = NotificationCompat.Builder(
-                    requireContext(),
-                    GoBarBdApp.NOTIFICATION_CHANNEL_ID
-                )
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle("GoBarBD Test")
-                    .setContentText("This is a local test notification.")
-                    .setAutoCancel(true)
-                    .build()
-                NotificationManagerCompat.from(requireContext()).notify(1002, notification)
-            }
         }
         return view
     }
@@ -189,19 +168,17 @@ class BarberProfileFragment : Fragment() {
         return String.format(Locale.getDefault(), "%02d:%02d", hours, mins)
     }
 
-    private fun ensureNotificationsPermission(): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            return true
+    private fun getLongSafe(
+        doc: com.google.firebase.firestore.DocumentSnapshot,
+        field: String,
+        fallback: Long
+    ): Long {
+        val raw = doc.get(field)
+        return when (raw) {
+            is Number -> raw.toLong()
+            is String -> raw.toLongOrNull() ?: fallback
+            else -> fallback
         }
-        val granted = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.POST_NOTIFICATIONS
-        ) == PackageManager.PERMISSION_GRANTED
-        if (granted) {
-            return true
-        }
-        requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 5002)
-        Toast.makeText(requireContext(), "Allow notifications to test", Toast.LENGTH_SHORT).show()
-        return false
     }
+
 }

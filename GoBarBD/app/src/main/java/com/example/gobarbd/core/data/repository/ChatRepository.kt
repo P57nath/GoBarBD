@@ -199,7 +199,7 @@ object ChatRepository {
         if (chatId.isBlank() || userId.isBlank()) {
             return
         }
-        val data = hashMapOf(
+        val data = mutableMapOf<String, Any>(
             "typingUserId" to userId,
             "isTyping" to isTyping,
             "typingAt" to System.currentTimeMillis()

@@ -18,6 +18,7 @@ import com.example.gobarbd.core.data.model.Barbershop
 import com.example.gobarbd.feature.customer.detail.BarbershopDetailActivity
 import com.example.gobarbd.feature.customer.filter.FilterBottomSheet
 import com.example.gobarbd.feature.customer.search.AllBarbershopsActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
@@ -159,6 +160,12 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
             true
+        }
+
+        view.findViewById<View>(R.id.imgProfile).setOnClickListener {
+            requireActivity()
+                .findViewById<BottomNavigationView>(R.id.bottom_navigation)
+                ?.selectedItemId = R.id.nav_profile
         }
 
         // FIND NOW (GOOGLE MAPS)

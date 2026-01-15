@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,61 +16,77 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Profile"
+            android:textColor="#1E3878"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            app:cardCornerRadius="16dp"
+            app:cardElevation="3dp">
 
-            <ImageView
-                android:id="@+id/imgProfileAvatar"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/profile_placeholder" />
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/txtProfileName"
+                <ImageView
+                    android:id="@+id/imgProfileAvatar"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/circle_background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_placeholder" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="User Name"
-                    android:textStyle="bold" />
+                    android:layout_toEndOf="@id/imgProfileAvatar"
+                    android:layout_marginStart="12dp"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txtProfileEmail"
+                    <TextView
+                        android:id="@+id/txtProfileName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User Name"
+                        android:textColor="#1E3878"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtProfileEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="user@email.com"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtProfilePhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnEditProfile"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="user@email.com" />
-
-                <TextView
-                    android:id="@+id/txtProfilePhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone"
-                    android:textColor="#999999"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnEditProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#1E3878"
-            android:text="Edit profile"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="#1E3878"
+                    android:text="Edit"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    app:cornerRadius="8dp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/txtAvailabilityLabel"
@@ -75,82 +94,97 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Availability"
+            android:textColor="#1E3878"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtAvailability"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Working: 09:00 - 20:00 - 30 min slots"
-            android:textColor="#999999"
-            android:textSize="12sp" />
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <TextView
+                android:id="@+id/txtAvailability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="Working: 09:00 - 20:00 - 30 min slots"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Setting"
+            android:text="Settings"
+            android:textColor="#1E3878"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
 
-            <TextView
-                android:id="@+id/rowNotification"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:text="Notification" />
+                android:orientation="vertical"
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/rowAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:text="Account" />
+                <TextView
+                    android:id="@+id/rowNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="Notification"
+                    android:textColor="#1E3878" />
 
-            <TextView
-                android:id="@+id/rowSecurity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:text="Security" />
+                <TextView
+                    android:id="@+id/rowAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="Account"
+                    android:textColor="#1E3878" />
 
-            <TextView
-                android:id="@+id/rowHelp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:text="Help" />
+                <TextView
+                    android:id="@+id/rowSecurity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="Security"
+                    android:textColor="#1E3878" />
 
-            <TextView
-                android:id="@+id/rowAbout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:text="About" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/rowHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="Help"
+                    android:textColor="#1E3878" />
+
+                <TextView
+                    android:id="@+id/rowAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="About"
+                    android:textColor="#1E3878" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/action_button_background"
+            android:backgroundTint="#1E3878"
             android:text="Log out"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/btnTestNotification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/action_button_background"
-            android:text="Test Notification"
-            android:textColor="@android:color/white" />
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 </ScrollView>

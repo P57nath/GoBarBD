@@ -82,9 +82,9 @@ class BarberScheduleFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { doc ->
                     val barberId = doc.getString("barberId") ?: user.uid
-                    val startMinutes = (doc.getLong("workingStartMinutes") ?: 540L).toInt()
-                    val endMinutes = (doc.getLong("workingEndMinutes") ?: 1200L).toInt()
-                    val slotMinutes = (doc.getLong("slotDurationMinutes") ?: 30L).toInt()
+                    val startMinutes = getLongSafe(doc, "workingStartMinutes", 540L).toInt()
+                    val endMinutes = getLongSafe(doc, "workingEndMinutes", 1200L).toInt()
+                    val slotMinutes = getLongSafe(doc, "slotDurationMinutes", 30L).toInt()
                     currentSettings = AvailabilitySettings(
                         startMinutes = startMinutes,
                         endMinutes = endMinutes,
@@ -187,5 +187,18 @@ class BarberScheduleFragment : Fragment() {
         val hours = minutes / 60
         val mins = minutes % 60
         return String.format(Locale.getDefault(), "%02d:%02d", hours, mins)
+    }
+
+    private fun getLongSafe(
+        doc: com.google.firebase.firestore.DocumentSnapshot,
+        field: String,
+        fallback: Long
+    ): Long {
+        val raw = doc.get(field)
+        return when (raw) {
+            is Number -> raw.toLong()
+            is String -> raw.toLongOrNull() ?: fallback
+            else -> fallback
+        }
     }
 }
